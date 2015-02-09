@@ -1,0 +1,698 @@
+<?php
+	$totalResult = count($this->paginator);
+	$DoctorInsurance = new Application_Model_DoctorInsurance();
+	$settings = new Admin_Model_GlobalSettings();
+	$locale = $settings->settingValue('locale');
+	setlocale(LC_ALL, $locale);
+	$this->headScript()->appendFile("/js/jquery-1.4.2.js");
+	$this->headScript()->appendFile("/js/jquery.blockUI.js");
+	$this->headScript()->appendFile("/js/jquery.json-2.2.js");
+	$this->headScript()->appendFile("/js/dih.js");
+	$this->headLink()->appendStylesheet("/js/autosuggest/jquery.autocomplete.css");
+	$this->headScript()->appendFile("/js/autosuggest/jquery.autocomplete.min.js");
+
+	$this->headMeta()->appendName('description', $this->metaDescription);
+	$this->headMeta()->appendName('keywords', $this->metaKeywords);
+	$this->headTitle()->append($this->metaTitle);
+	
+?>
+<div id="inner_wrapper" class="clearfix">
+	<div id="header">
+		<div id="profile_map" class="clearfix">
+			<div id="map_canvas" style="height: 300px;width:930px;"><img style="margin:84px 0px 0px 230px;" src="../images/loading_big.gif"></div>
+		</div>
+		<?php if($this->description != "") { ?>
+		<div class="seoDescription">
+			<p><?php echo $this->description; ?></p>
+		</div>
+		<?php } ?>
+		<?php echo $this->render("search/newSearch.phtml");     ?>
+		<div class="redLine">&nbsp;</div>
+	</div>
+	<div id="list_main">					
+		<?php
+		$serach_result_string = "";
+		if ($this->insuranceid > 0) {
+			$Insurance = new Application_Model_InsuranceCompany();
+			$insuranceCompany = $Insurance->fetchRow("status=1 AND id ='{$this->insuranceid}'");
+			if($insuranceCompany)$serach_result_string = $insuranceCompany->getCompany() . " ";
+		}
+		if ($this->catid > 0) {
+			$Category = new Application_Model_Category();
+			$catObject = $Category->fetchRow("status=1 AND id='{$this->catid}'");
+			if($catObject)$serach_result_string .= $catObject->getName();
+		}
+		if ($this->area != "" && $this->area != $this->lang[69]) {
+			$serach_result_string .= " " . $this->area;
+		}
+		if($this->selectedStates!='')$serach_result_string .= ", ".$this->selectedStates;
+		if ($this->reasonid > 0) {
+			$Reason = new Application_Model_ReasonForVisit();
+			$reasonObject = $Reason->fetchRow("status=1 AND id='{$this->reasonid}'");
+			if($reasonObject)$serach_result_string .= $this->lang[542]. $reasonObject->getReason();
+		}
+		if ($this->searchText!=$this->lang[76]) {
+			$serach_result_string .= " {$this->searchText}";
+		}
+		?>
+		<div id="search_results_title"><strong><?php echo $this->lang[420]; ?></strong> <?php echo $serach_result_string; ?></div>
+                                    
+		<div id="main_wrapper">
+			<?php 
+			if($totalResult > 0) { 
+				echo $this->partial('search/timeslot_header.phtml');
+				$drid_data = "";
+				$initGeo = "";
+				$page = $this->paginator->getCurrentPageNumber();
+				$sno = 0;
+				$items_per_page = $this->paginator->getItemCountPerPage();
+
+
+				$geoArray = array();
+				$Doctor = new Application_Model_Doctor();
+				$isBronze = 0;
+				$gmapJS = "";
+				$gmapInfo = array();
+				foreach ($this->paginator as $docId) {
+					$sno++;
+					$profileArray = array();
+					$object = $Doctor->fetchRow("id='{$docId->id}'");
+					$profileArray['object'] = $object;
+					$profilePath = $this->seoUrl('/profile/index/id/' . $object->getId());
+					
+					if ($object->getClicktotalkurl() != '') {				  
+						$profilePath = $object->getClicktotalkurl();
+					}
+					
+					$profileArray['profilePath'] = $profilePath;
+					$profileArray['categoryStr'] = $Doctor->getDoctorCategoryList($object->getId());
+					// for google map
+					$geocodes = "";
+					$geocodes = trim($object->getGeocode());
+					
+					$phone = $object->getAssignPhone();
+					$phonetext = "";
+					if(!empty($phone))
+						$phonetext = "<br /><span style='background:url(../images/call.jpg) no-repeat left;font:bold 16px Arial, Helvetica, sans-serif;	color:#f78009;	padding:0px 0px 0px 18px;'>".$phone."</span>";
+
+					$geoArray['geo'][$sno] = $geocodes;
+					
+					$geoArray['htmlInfo'][$sno] = "<span style='font:normal 12px arial;'><b><a href='{$profilePath}'>".$object->getFname()."</a></b><br />".$object->getStreet()."<br />".$object->getCity().", ".$object->getState()." ".$object->getZipcode().$phonetext."</span>";
+					$geoArray[] = $object->getGeocode();
+
+					if($initGeo==''){
+						$initGeo = $geocodes;
+					}
+				
+					$profileImage = "/images/doctor_image/" . $object->getCompanylogo();
+					if (!file_exists(getcwd() . $profileImage) || $object->getCompanylogo()=='') {
+						$profileImage = "/images/doctor_image/noimage.jpg";
+					}
+					$profileArray['profileImage'] = $profileImage;
+				 
+					?>
+			<div class="list_item">                        
+				<div class="left_side">                            	
+					<div class="left OfferImageWrapper">
+						<div class="list_item_numbers">
+							<span><?php echo $sno ?></span>
+						</div>
+						<a href="<?php echo $profilePath; ?>">
+							<img width="180" alt="<?php echo $object->getFname(); ?>" title="<?php echo $object->getFname(); ?>" src="<?php echo $profileImage; ?>" class="profile_pic" >
+						</a>
+					</div>
+					<?php
+
+				/*                  Google Map Javascript Start               */
+
+                $gmapJS = <<<EOT
+
+                <div class="doc-information-map">
+
+                <div class="doc-information-img-outer">
+
+                <div class="doc-information-img showinfo">
+
+                <a href="{$profilePath}">
+
+                <img width="70" src="$profileImage" title="{$object->getFname()}" alt="{$object->getFname()}">
+
+                </a>
+
+                </div>
+
+                {$promottionFullText}
+
+                </div>
+
+                <div class="doc-information-detail">
+
+                <!--span class="sobi2Rating">
+
+                    <span class="sobiRating"><img src="{$this->cdnUri()}images/Star-Rating/{$ratingArray['image']}-star.png" alt="{$ratingArray['votes']}"></span>
+
+                    Reviews: {$ratingArray['reviews']}
+
+                </span-->
+
+                <span class="doc-name"><a href="{$profilePath}" title="{$object->getFname()}">{$object->getFname()}</a></span>
+
+                <span class="doc-address">{$object->getStreet()}<br>{$object->getCity()}, {$object->getState()} {$object->getZipcode()}</span>
+
+                <div class="clear"></div><span class="call"> {$object->getAssignPhone()}</span>
+
+                <div class="clear"></div><!--div class="doc-address"><a onclick="addfancybox();triggerBookAppButton('{$object->getId()}');" class="book-appointment" href="javascript:;">Book Appointment</a></div-->
+
+                </div>
+
+                </div>
+
+
+
+EOT;
+
+	                $gmapInfo[$sno]['html'] = $gmapJS;
+	                $gmapInfo[$sno]['long'] = '';
+	                $latLong = explode(',', $object->getGeocode());
+	                if(!empty($latLong)){
+	                    $gmapInfo[$sno]['lat'] = $latLong[0];
+	                    if(isset($latLong[1]))
+	                    $gmapInfo[$sno]['long'] = $latLong[1];
+	                }else{
+	                    $gmapInfo[$sno]['lat'] = '';
+	                    $gmapInfo[$sno]['long'] = '';
+	                }
+
+        		/*                  Google Map Javascript End              */
+
+                ?>
+					
+					<div class="profile_main_info">			
+						<h2><a href="<?php echo $profilePath; ?>"><?php echo $object->getFname(); ?>,</a></h2>
+						<h4>
+						<?php if($object->getSpecialtyTitle()!="") {
+								echo $object->getSpecialtyTitle(); 
+							} else {
+								$DocCategory = new Application_Model_DoctorCategory();
+								$categoryArr = $DocCategory->getDoctorCategories("doctor_id='{$object->getId()}'");
+								asort($categoryArr);
+								if(!empty($categoryArr)){
+									foreach($categoryArr as $catname): 
+										echo $catname;?>&nbsp;
+								<?php endforeach;
+								}
+							}
+						?>
+						</h4>					
+						<?php $address = $object->getStreet().", ".$object->getCity().", ".$object->getState()." ".$object->getZipcode(); ?> 
+						<span class="doctor_address"><?php echo $address; ?></span>
+						<span class="doctor_tel"><?php echo $object->getAssignPhone(); ?></span>
+					</div>
+					<!--review -->
+					<?php
+					if($this->rev) {
+						$modeldoctorreview = new Application_Model_DoctorReview();
+						$id = $object->getId();
+						?>
+						<span class="doctor_rating"><?php echo $this->lang[565]; ?>
+							<?php $ratingArray = $modeldoctorreview->getRatingReviews($object->getId()); ?>
+							<img alt="<?php echo $ratingArray['votes'];?>" src="<?echo $this->cdnUri()?>/images/Star-Rating/<?php echo $ratingArray['image'];?>-star.png">
+						</span>	
+						<br/>
+					<?php } ?>
+					<!-- end of review -->
+					<!-- book now button -->
+					<?php if($object->hasRvleft() && $object->getMembershipLevel() != "Standard") { ?>
+					<a id="appbtn<?php echo $object->getId()?>" class="profile_button book-appointment" href="/profile/show-timeslot/id/<?php echo $object->getId()?>" onclick="addfancybox()"><span><?php echo $this->lang[586]; ?></span></a>
+					<?php } ?>
+					<!--  end of book now button -->
+				</div>
+
+
+				<div class="right_side">
+					
+					<?php
+					
+					/**      APOINTMENTS          **/
+			        $todayDate	=	mktime(0,0,0, date("m"), date("d"), date("Y"));
+
+					if(isset($_REQUEST['start_date']))
+					{
+						$start_date = $_REQUEST['start_date'];
+						$dateArr = explode("/", $start_date);
+						$requestDate	=	mktime(0,0,0, $dateArr[0], $dateArr[1], $dateArr[2]);
+						$jd = GregorianToJD($dateArr[0], $dateArr[1], $dateArr[2]); //GregorianToJD(m, d, y);
+						$reqMM =  $dateArr[0];
+						$reqDD =  $dateArr[1];
+						$reqYY =  $dateArr[2];
+					}else{
+
+						$requestDate	=	mktime(0,0,0, date("m"), date("d"), date("Y"));
+						$jd = GregorianToJD(date("m"), date("d"), date("Y")); //GregorianToJD(m, d, y);
+						$reqMM =  date("m");
+						$reqDD =  date("d");
+						$reqYY =  date("Y");
+					}
+
+					$requestDay = date("l", $requestDate);
+
+					$weekFirstDate		=	$jd;
+					$weekSecondDate		=	$jd+1;
+					$weekThirdDate		=	$jd+2;
+					$weekFourthDate		=	$jd+3;
+					$weekFifthDate		=	$jd+4;
+					$weekSixthDate		=	$jd+5;
+					$weekSeventhDate	=	$jd+6;
+
+					$preWeekStart	=	$jd-5;
+					$nextWeekStart	=	$jd+5;
+					
+					$preWeekStartDate = JDToGregorian($preWeekStart);
+					$nextWeekStartDate = JDToGregorian($nextWeekStart);
+		  			?>
+					<div class="profile-appoint main_box dates">
+						<div class="arrow-right-app"> 
+							<a rel="<?php echo $rel_startdate;?>" href="#;" id="div_prev-<?php echo $docId->id;?>" class="info info_prev">
+								<span>Previous</span>
+							</a> 
+						</div>
+						<ul class="apointWrapper">
+							<li class="appoint-heading">
+								<ul id="appointment-head-<?php echo $docId->id;?>" class="appoint-list appointment-head-list">
+								</ul>					
+							</li>
+							<li class="appoint-body">
+								<ul class="appint-times">
+									<li id="appointment-<?php echo $docId->id;?>">				
+										<ul class="apointments">					
+										</ul>
+									</li>
+								</ul>
+							</li>
+						</ul>
+						<div class="arrow-left-app"> 
+							<a rel="start_date=<?php echo $nextWeekStartDate;?>" href="#;" id="div_next-<?php echo $docId->id;?>" class="info info_next">
+								<span>Next</span>
+							</a> 
+						</div>
+					</div>				
+					<?php /*** end APOINTMENTS ***/ ?>
+				</div>
+			</div>
+				<?php  
+				$drid_data .= $object->getId()." ";
+			} //end foreach
+		} else { //NO results
+			echo $this->lang[423]; 
+			
+
+			$setting = new Admin_Model_GlobalSettings();
+			$default_long = $setting->settingValue('longitude');
+			$default_lat = $setting->settingValue('latitude');
+		
+			$geocodes = $default_long.",".$default_lat;
+
+			/*$geoArray = array();
+			$geoArray['geo'][0] = $geocodes;
+			
+			$geoArray['htmlInfo'][0] = "<span style='font:normal 12px arial;'></span>";
+			$geoArray[] = $default_long.",".$default_lat;*/
+
+			if($initGeo==''){
+				$initGeo = $geocodes;
+			}
+			//var_dump($default_long);
+		} ?>
+			<input type="hidden" class="drid_data" value="<?php echo $drid_data?>">
+		</div>
+	</div>
+	<!-- ---------------------------------------------Timeslot js --------------------------------------------- -->
+<script type="text/javascript">
+
+<?php 
+$timeslotsChange = $settings->settingValue('timeslots_change');
+if($timeslotsChange) {
+?>
+     jQuery(".info_next").click( function () {
+		var currentId = "";
+		
+		$('.info_next').each(function() {				
+			currentId = jQuery(this).attr('id');
+			start_date = jQuery("#"+currentId).attr('rel');
+	        if(start_date!="") {
+
+	            start_date_arr = start_date.split('=');
+
+	            if(jQuery.trim(start_date_arr[1])!=''){
+	                jQuery.blockUI({ overlayCSS: { backgroundColor: '#000' } });
+					var theid = currentId.split('-');
+	                loadSlotDataSpecific(start_date_arr[1], 'c', theid[1]);
+	                setTimeout(jQuery.unblockUI, 4000);
+	            }
+	        }
+	    });
+	});
+
+ 	jQuery(".info_prev").click( function () {
+		var currentId = "";
+
+		$('.info_prev').each(function() {				
+			currentId = jQuery(this).attr('id');
+			start_date = jQuery("#"+currentId).attr('rel');
+	        if(start_date!="") {
+
+	            start_date_arr = start_date.split('=');
+
+	            if(jQuery.trim(start_date_arr[1])!=''){
+	                jQuery.blockUI({ overlayCSS: { backgroundColor: '#000' } });
+					var theid = currentId.split('-');
+	                loadSlotDataSpecific(start_date_arr[1], 'c', theid[1]);
+	                setTimeout(jQuery.unblockUI, 4000);
+	            }
+	        }
+	    });
+	});
+	<?php } else { ?>
+
+ 	jQuery(".info").click(
+        function () {
+			var currentId = jQuery(this).attr('id');
+            start_date = jQuery("#"+currentId).attr('rel');
+                if(start_date!="") {
+
+                    start_date_arr = start_date.split('=');
+
+                    if(jQuery.trim(start_date_arr[1])!=''){
+                        jQuery.blockUI({ overlayCSS: { backgroundColor: '#000' } });
+						var theid = currentId.split('-');
+                        loadSlotDataSpecific(start_date_arr[1], 'c', theid[1]);
+                        setTimeout(jQuery.unblockUI, 4000);
+                    }
+
+                }
+            }
+        );
+	<?php } ?>
+
+	function infoFuture(nextdate, drid) {
+        jQuery.blockUI({ overlayCSS: { backgroundColor: '#000' } });
+		console.log(nextdate+" - "+drid);
+        loadSlotDataSpecific(nextdate, 'c', drid);
+        setTimeout(jQuery.unblockUI, 4000);
+    }
+    
+	function loadSlotDataSpecific(start_date, load_type, id)
+    {
+        // load_type variable use to check if function called on page load or on click.
+        if(start_date!="") {
+            
+                drid_val = id;
+                jQuery.post('/search/timeslot/', {drid: drid_val, start_date:start_date, weeks_ahead:0 },
+
+                function(data){
+                    var decoded = $.json.decode(data);
+
+                    dr_div_id = "#appointment-"+decoded['drid'];//2
+                    jQuery(dr_div_id).html(decoded['return_data']);//1
+                    jQuery("#appointment-head-"+decoded['drid']).html(decoded['appointment_head']); //3
+                    if(load_type=='c'){ // if time slot loading from on click event.
+                        jQuery("#div_prev-"+decoded['drid']).attr('rel','start_date='+decoded['button_prev_date']);//4
+                        jQuery("#div_next-"+decoded['drid']).attr('rel','start_date='+decoded['button_next_date']); //5
+                    }
+
+                    initiate_click();
+
+                }, false);
+            
+        }
+    }
+    function loadSlotData(start_date, load_type)
+    {
+        // load_type variable use to check if function called on page load or on click.
+        if(start_date!="") {
+            
+            drid_data_arr = jQuery.trim(jQuery(".drid_data").val()).split(" ");
+            for(i=0;i<drid_data_arr.length;i++){
+                drid_val = drid_data_arr[i];
+                
+                jQuery.post('/search/timeslot/', {drid: drid_val, start_date:start_date, weeks_ahead:0 },
+
+                function(data){
+
+                    var decoded = $.json.decode(data);
+					var counter;
+					
+                    if(decoded['noAppts']) {
+                    	counter = 1;	
+                    	var found = false;
+                    	var nextdate = decoded["button_next_date"];
+                    	var maxWeeks = 4;
+                    	while((counter<maxWeeks) && (found == false)) {
+                    		console.log(counter+" "+nextdate);
+                    		jQuery.ajax({
+								type: 'POST',
+								url: '/search/timeslot/',
+								data:  {drid: decoded['drid'], start_date:start_date, weeks_ahead:counter },
+								success: function (data) {
+								  	dec = (data);
+								  	nextdate = dec['button_current_date'];
+									dr = decoded['drid'];
+									var func = 'infoFuture("'+nextdate+'", '+dr+')';
+									message = "<div class='no-app-available'><span><a href='#;' id='future-"+dr+"' class='info_future' onclick='"+func+"; return false;' rel='start_date="+dec['button_next_date']+"'>next available appointment</a></span></div>";
+								
+									if(!dec['noAppts']) {
+										dr_div_id = "#appointment-"+decoded['drid'];//2
+										jQuery(dr_div_id).html(message);//1	
+										found=true;
+									}
+								},
+								dataType: 'json',
+								async:false
+							});
+							counter++;
+						}
+
+						if((counter == maxWeeks) && (found == false)) { //no appointments within the limit
+							dr_div_id = "#appointment-"+decoded['drid'];
+							message = "<div class='no-app-available'><span><?php echo $this->lang[948]; ?></span></div>"
+							jQuery(dr_div_id).html(message);//1	
+						}
+	                }
+
+                    dr_div_id = "#appointment-"+decoded['drid'];//2
+                    if(!decoded['noAppts']) {
+	                   jQuery(dr_div_id).html(decoded['return_data']);//1
+	                }
+                    jQuery("#appointment-head-"+decoded['drid']).html(decoded['appointment_head']); //3
+                    if(load_type=='c'){ // if time slot loading from on click event.
+                        jQuery("#div_prev-"+decoded['drid']).attr('rel','start_date='+decoded['button_prev_date']);//4
+                        jQuery("#div_next-"+decoded['drid']).attr('rel','start_date='+decoded['button_next_date']); //5
+                    }
+
+                    initiate_click();
+
+                }, false);
+            }
+        }
+    }
+
+    jQuery(document).ready(function() {
+        setTimeout(callbackTimeslot, 1000);
+    } );
+
+    function callbackTimeslot(){
+        loadSlotData("<?php echo date('m/d/Y'); ?>", 'p');
+    }
+
+   function initiate_click(){
+       jQuery('.moreLink').click(function(){
+            jQuery(this).hide();
+            jQuery('#'+jQuery(this).attr('rel')).fadeIn(500);
+        });
+   }
+
+
+jQuery(document).ready(function(){
+     
+     jQuery('#reason_to_visit').change(function(){
+        $.post('/profile/set-reasonforvisit/', {
+                reason:$(this).val()
+            },
+            function(html){
+            });
+     });
+     
+});
+
+</script>
+<!-- ---------------------------------------------Googlemap js --------------------------------------------- -->
+
+<?php $config = new Zend_Config_Ini(APPLICATION_PATH.'/configs/'.APPLICATION_INI, APPLICATION_ENV); ?>
+<script src="//maps.googleapis.com/maps/api/js?sensor=false&amp;language=en" type="text/javascript"></script>
+
+<?php if($totalResult!=0) { ?>
+<script type="text/javascript">
+        function addfancybox(add)
+        {
+            
+            var fancy='#fancybox-wrap';
+            if(fancy)
+            {
+                if(add)
+                {
+                    $('#fancybox-wrap').addClass('wrap1');
+                }
+                else
+                {
+                    $('#fancybox-wrap').removeClass();
+                }
+            }
+            
+        }
+        function triggerBookAppButton(id){
+            $('#appbtn'+id).trigger('click');
+            return false;
+        }
+
+        jQuery(document).ready(function(){
+            
+            $("#bronze-message").fancybox({
+			'width' : 500,
+			'height' : 600
+            });
+            <?php if($isBronze && $this->searchText==''){?>$("#bronze-message").trigger('click');<?php }?>
+
+
+
+            $(".book-appointment").fancybox({
+		'width' : 935,
+		'height' : 600,
+		'autoScale' : true,
+		'transitionIn' : 'none',
+		'transitionOut' : 'none',
+		'autoDimensions' : false,
+		'type' : 'iframe'
+            });
+
+         jQuery('#reason').change(function(){
+
+                $.post('/profile/set-reasonforvisit/', {
+                    reason:$(this).val()
+                },
+                function(html){
+                });
+           });
+
+        });
+
+<?php if(isset($geoArray)) { ?>
+        var geostr = '<?php echo implode('::', $geoArray['geo']);?>';
+        var LangLatArray = Array();
+        LangLatArray = geostr.split('::');
+        
+   		var htmlstr = "<?php  echo str_replace("\n", " ", implode('::', $geoArray['htmlInfo']));?>";
+
+        var HtmlInfoArray = Array();
+        HtmlInfoArray = htmlstr.split('::');
+<?php } ?>
+    <?php
+    $zoom = 8;
+    $cityZip = 'city'; // city for city search and zip for zipsearch
+    if (is_numeric($this->area)) {
+        $cityZip = 'zip';
+    }
+    
+    if($this->area!='' && $this->catid!='' && $cityZip=='city'){
+        // specialty city zoom
+        $zoom = 11;
+        
+        $setting = new Admin_Model_GlobalSettings();
+		$default_city = $setting->settingValue('default_city');
+		if($this->area == $default_city) {
+			$zoom = 10;
+		}
+    }elseif($this->area!='' && $this->catid!='' && $cityZip=='zip'){
+        // specialty zipcode zoom
+        $zoom = 14;
+    }elseif($this->area!='' && ($this->catid=='' || $this->catid<1) && $cityZip=='city'){
+        // city zoom
+        $zoom = 10;
+    }elseif(($this->area=='' && $this->area<1) && $this->catid!=''){
+        // specialty zoom
+        $zoom = 3;
+    }
+    if($totalResult<1)$zoom = 11;
+	//if($totalResult==1)$zoom = 16;
+    ?>
+	function initialize() {
+        var map = new google.maps.Map(document.getElementById("map_canvas"),{
+			zoom: <?php echo $zoom;?>,
+			mapTypeId: google.maps.MapTypeId.ROADMAP
+		});
+        var str = '<?php echo trim($initGeo);?>';
+        var brk = str.split(',');
+        
+        map.setCenter(new google.maps.LatLng(parseFloat(brk[0]),parseFloat(brk[1])), <?php echo $zoom;?>);
+
+       
+        // Creates a marker whose info window displays the letter corresponding
+        // to the given index.
+		var infoWindow = new google.maps.InfoWindow();
+        function createMarker(point, index, infoHtml) {
+
+			var marker = new google.maps.Marker({
+				position: point,
+				map: map,
+				icon: "/images/markers/marker" + index + ".png"
+			});
+			
+			google.maps.event.addListener(marker, "mouseover", function() {
+				if (infoWindow) {
+					infoWindow.close();
+				}
+				infowindow = new google.maps.InfoWindow();
+				infoWindow.setContent(infoHtml);
+				infoWindow.open(map,marker);
+			});
+			
+			return marker;
+        }
+
+
+        var i = 1;
+        <?php foreach($gmapInfo as $g){?>
+            var latlng = new google.maps.LatLng(parseFloat(<?php echo $g['lat']?>),parseFloat(<?php echo $g['long']?>));
+            //var html = "<?php //echo (string)htmlspecialchars(str_replace(array("\r","\t","\n"),"",$g['html']),ENT_QUOTES)?>";
+            var html = "<?php echo addslashes(str_replace(array("\r","\t","\n"),"",$g['html']))?>";
+			createMarker(latlng, i, html);
+           i++;
+        <?php }?>
+  
+
+	}
+	google.maps.event.addDomListener(window, 'load', initialize);
+
+    </script>
+
+
+    <?php } else {  //zero results 
+		$setting = new Admin_Model_GlobalSettings();
+		$default_long = $setting->settingValue('longitude');
+		$default_lat = $setting->settingValue('latitude');
+	?>
+<script type="text/javascript">
+function initialize() {
+	var map = new google.maps.Map(document.getElementById("map_canvas"),{
+		zoom: 8,
+		mapTypeId: google.maps.MapTypeId.ROADMAP
+	});
+
+
+	map.setCenter(new google.maps.LatLng(parseFloat(<?php echo $default_long; ?>),parseFloat(<?php echo $default_lat; ?>)), 8);
+}
+
+google.maps.event.addDomListener(window, 'load', initialize);
+</script>
+
+<?php } ?>
+</div>

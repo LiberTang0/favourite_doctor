@@ -1,0 +1,19 @@
+<script type="text/javascript">
+	Cufon.replace('#footer ul#four_cols li a, h5.galleryTitle', { fontFamily: 'Futura', hover: true });
+</script>
+<div id="footer">
+	<div id="quick_links" class="left">
+		
+		<a href="<?php echo $this->seoUrl('/index/about-us');?>"><?php echo $this->lang[133]; ?></a> - 
+		<a href="<?php echo $this->seoUrl('/index/contact-us');?>"><?php echo $this->lang[27]; ?></a> -
+		<a href="<?php echo $this->seoUrl('/index/terms');?>"><?php echo $this->lang[37]; ?></a> -
+		<a href="<?php echo $this->seoUrl('/index/privacy-policy');?>"><?php echo $this->lang[38]; ?></a>
+	</div>
+	<div id="credits" class="right">
+		2012 &copy; <a href="http://www.<?php echo $this->lang[429]; ?>.com"><?php echo $this->lang[429]; ?></a>
+	</div>
+	<?php
+    $config = new Zend_Config_Ini(APPLICATION_PATH.'/configs/'.APPLICATION_INI, APPLICATION_ENV);
+	?>	
+</div>
+<?php echo $this->render("/page/footerarticle.phtml"); ?>

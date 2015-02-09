@@ -1,0 +1,34 @@
+<div class="calendartab-box">
+  <ul class="calendar-tabs" id="calendertabs">
+    <li><a class="<?php if($this->tab=='day' || $this->tab=='')echo 'selected';?> opentab" rel="daily" href="#"><?php echo $this->lang[485]?></a></li>
+    <li><a class="<?php if($this->tab=='week')echo 'selected';?> opentab" rel="weekly" href="#" class=""><?php echo $this->lang[486]?></a></li>
+    <li><a class="<?php if($this->tab=='month')echo 'selected';?> opentab" rel="monthly" href="#" class=""><?php echo $this->lang[487]?></a></li>
+  </ul>
+  <div class="calendar-tabs-data">
+    <div class="tabcontent" id="daily" style="display: <?php if($this->tab=='day' || $this->tab=='')echo 'block';else echo 'none';?>;">
+        <?php echo $this->render('index/daily.phtml');?>
+    </div>
+    <div class="tabcontent" id="weekly" style="display: <?php if($this->tab == 'week')echo 'block';else echo 'none';?>">
+      <?php echo $this->render('index/weekly.phtml');?>
+    </div>
+    <div class="tabcontent" id="monthly" style="display: <?php if($this->tab=='month')echo 'block';else echo 'none';?>;">
+      <?php echo $this->render('index/monthly.phtml');?>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+    jQuery(document).ready(function(){
+        jQuery('.opentab').click(function(){
+            if(jQuery(this).hasClass('selected'))return false;
+            
+            var id = jQuery(this).attr('rel');
+            jQuery('.opentab').removeClass('selected');
+            jQuery(this).addClass('selected');
+
+
+            jQuery('.tabcontent').hide(10, function(){
+                jQuery('#'+id).show(10);
+            });
+        })
+    });
+</script>

@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configdata>
+    <nav>
+        <home>
+            <label>Home</label>
+            <uri>/</uri>
+            <pages>
+                <my_gap_deamon>
+                    <label>My Gap Deamon</label>
+                    <uri>/gapper/my-gap-deamon</uri>
+                    <action>my-gap-deamon</action>
+                    <controller>gapper</controller>
+                    <pages>
+                        <where_i_am>
+                            <label>Where I am</label>
+                            <uri>/gapper/where-i-am</uri>
+                            <action>where-i-am</action>
+                            <controller>gapper</controller>
+                        </where_i_am>
+                        <my_profile>
+                            <label>My Profile</label>
+                            <uri>/gapper/my-profile/</uri>
+                            <action>my-profile</action>
+                            <controller>gapper</controller>
+                            <pages>
+                                <permissions>
+                                    <label>Permissions</label>
+                                    <uri>/gapper/permission/</uri>
+                                    <action>permission</action>
+                                    <controller>gapper</controller>
+                                </permissions>
+                            </pages>
+                        </my_profile>
+                        <my_travel_wall>
+                            <label>My Travel Wall</label>
+                            <uri>/gapper/my-travel-wall</uri>
+                            <action>my-travel-wall</action>
+                            <controller>gapper</controller>
+                        </my_travel_wall>
+                        <my_friends>
+                            <label>My Friends</label>
+                            <uri>/gapper/my-friends</uri>
+                            <action>my-friends</action>
+                            <controller>gapper</controller>
+                            <pages>
+                                <add_a_connection>
+                                    <label>Add a connection</label>
+                                    <uri>/gapper/add-a-connection</uri>
+                                    <action>add-a-connection</action>
+                                    <controller>gapper</controller>
+                                </add_a_connection>
+                                <requests>
+                                    <label>Requests</label>
+                                    <uri>/gapper/requests</uri>
+                                    <action>requests</action>
+                                    <controller>gapper</controller>
+                                </requests>
+                            </pages>
+                        </my_friends>
+                        <my_photos>
+                            <label>My Photos</label>
+                            <uri>/gapper/my-photos</uri>
+                            <action>my-photos</action>
+                            <controller>gapper</controller>
+                        </my_photos>
+                        <my_journal>
+                            <label>My Journals</label>
+                            <uri>/gapper/my-journals</uri>
+                            <action>my-journals</action>
+                            <controller>gapper</controller>
+                            <pages>
+                                <journal_settings>
+                                    <label>Journal Settings</label>
+                                    <uri>/gapper/journal-settings</uri>
+                                    <action>journal-settings</action>
+                                    <controller>gapper</controller>
+                                </journal_settings>
+                            </pages>
+                        </my_journal>
+                        <my_messages>
+                            <label>My Messages</label>
+                            <uri>/gapper/my-messages</uri>
+                            <action>my-messages</action>
+                            <controller>gapper</controller>
+                        </my_messages>
+						
+                        <update_my_email>
+                            <label>Update My Email</label>
+                            <uri>/gapper/update-my-email</uri>
+                            <action>update-my-email</action>
+                            <controller>gapper</controller>
+                        </update_my_email>
+                    </pages>
+                </my_gap_deamon>
+                <destinations>
+					    
+                    <label>Destinations</label>
+                    <uri>/index/destinations</uri>
+                    <action>destinations</action>
+                    <controller>index</controller>
+                </destinations>
+                <work_study_volunteer>
+                    <label>Work/Study/Volunteer</label>
+                    <uri>/index/work</uri>
+                    <action>work</action>
+                    <controller>index</controller>
+                </work_study_volunteer>
+                <forum>
+                    <label>Forum</label>
+                    <uri>/index/forum</uri>
+                    <action>forum</action>
+                    <controller>index</controller>
+                </forum>
+                <advice>
+                    <label>Advice</label>
+                    <uri>/index/advice</uri>
+                    <action>advice</action>
+                    <controller>index</controller>
+                </advice>
+                <journals>
+                    <label>Journals</label>
+                    <uri>/index/journals</uri>
+                    <action>journals</action>
+                    <controller>index</controller>
+                </journals>
+                <login>
+                    <label>Login</label>
+                    <uri>/index/login/</uri>
+                    <action>login</action>
+                    <controller>index</controller>
+                </login>
+                <register>
+                    <label>Register</label>
+                    <uri>/index/register</uri>
+                </register>
+            </pages>
+        </home>
+    </nav>
+</configdata>

@@ -1,0 +1,476 @@
+<?php
+//$this->headScript()->appendFile("http://w.sharethis.com/button/buttons.js");
+$key = '';
+$catval = '';
+if(!empty($this->categorydata)){
+    $key = key($this->categorydata);
+    $catval = $this->categorydata[$key];
+}
+?>
+<?php
+$paid = array('Platinum', 'Gold', 'Silver');
+
+$Doctor = new Application_Model_Doctor();
+$membership_level = $this->profiledata->getMembershipLevel();
+
+$key = '';
+$catval = '';
+if(!empty($this->categorydata)){
+    $key = key($this->categorydata);
+    $catval = $this->categorydata[$key];
+}
+?> 
+<?php if($this->profiledata->getArea()!="") { ?>
+<?php $address1line = $this->profiledata->getStreet().", ".$this->profiledata->getArea().", ".$this->profiledata->getCity().", ".$this->profiledata->getState()." ".$this->profiledata->getZipcode(); ?> 
+<?php $address2lines = $this->profiledata->getStreet().", ".$this->profiledata->getArea().", ".$this->profiledata->getCity().", <br/>".$this->profiledata->getState()." ".$this->profiledata->getZipcode(); ?> 
+<?php } else if($this->profiledata->getStreet()!="") { ?>
+<?php $address1line = $this->profiledata->getStreet().", ".$this->profiledata->getCity().", ".$this->profiledata->getState()." ".$this->profiledata->getZipcode(); ?> 
+<?php $address2lines = $this->profiledata->getStreet().", ".$this->profiledata->getCity().", ".$this->profiledata->getState()." ".$this->profiledata->getZipcode(); ?> 
+<?php } else {	
+	$address1line = "";
+	$address2lines = "";
+} ?>
+<div id="inner_wrapper" itemscope="" itemtype="http://schema.org/Physician">
+	<?php if($this->profiledata->getMembershipLevel()!='Comingsoon'){?>
+	<div class="breadcrumb">
+		<?php if($this->profiledata->getArea()!="") { ?>
+            <a href="<?php echo $this->seoUrl("/search?{$this->lang[933]}={$catval}&amp;{$this->lang[934]}={$this->profiledata->getArea()}")?>"><?php echo $this->profiledata->getArea()?></a>,
+            <?php } ?>
+            <?php if($this->profiledata->getCity()!="") { ?>
+            <a href="<?php echo $this->seoUrl("/search?{$this->lang[933]}={$catval}&amp;{$this->lang[934]}={$this->profiledata->getCity()}")?>"><?php echo $this->profiledata->getCity()?></a>,
+            <?php } ?>
+            <?php if($this->profiledata->getState()!="") { ?>
+            <a href="<?php echo $this->seoUrl("/search?{$this->lang[933]}={$catval}&amp;{$this->lang[934]}={$this->profiledata->getState()}")?>"><?php echo $this->profiledata->getState()?></a>  &gt;
+            <?php } ?>
+            <?php if(!empty($this->categorydata)):?><a href="<?php echo $this->seoUrl("/search?{$this->lang[933]}={$catval}&amp;{$this->lang[934]}={$this->profiledata->getState()}")?>"><?php echo $catval?></a> &gt;
+            <?php endif;?>
+		<span><?php echo $this->profiledata->getFname()?></span>
+	</div>
+	<?php } ?>
+	<div class="left" id="profileLeftColumn" >
+		<img  title="<?php echo $this->profiledata->getFname();?>" src="<?php echo $this->profileImage;?>" id="profile_pic" width="250" class="clearfix"/>
+		<div id="profile_map">
+			<div id="map_canvas" style="height:223px; width:240px"></div>
+			<span id="address"><?php echo $address1line; ?></span> 
+			
+			<h3><?php echo $this->lang[544]?></h3>
+			<ul id="share-it" class="clearfix">
+			<?php
+			function curPageURL() {
+				$pageURL = 'http';
+				if ($_SERVER["HTTPS"] == "on") {$pageURL .= "s";}
+				$pageURL .= "://";
+				if ($_SERVER["SERVER_PORT"] != "80") {
+					$pageURL .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
+				} else {
+					$pageURL .= $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
+				}
+				return $pageURL;
+			}
+			?>
+				<li>
+					<a href="#" id="fbsharer"><img src="/images/fb_btn.png" alt="Btn-facebook"></a>
+					<script type="text/javascript">
+						function openCenteredWindow(url) {
+							parms = 'menubar=no,width=600,height=500,toolbar=no'
+							name = "facebook_share"
+							height=500
+							width=600
+						   var left = Math.floor( (screen.width - width) / 2);
+						   var top = Math.floor( (screen.height - height) / 2);
+						   var winParms = "top=" + top + ",left=" + left + ",height=" + height + ",width=" + width;
+						   if (parms) { winParms += "," + parms; }
+						   var win = window.open(url, name, winParms);
+						   if (parseInt(navigator.appVersion) >= 4) { win.window.focus(); }
+						   return win;
+						}					
+
+						$(document).ready( function() {
+							$('a#fbsharer').click(function (){ 
+								url = encodeURIComponent('<?php echo curPageURL(); ?>');
+								title = encodeURIComponent('<?php echo $this->profiledata->getFname();?>, <?php if($this->profiledata->getSpecialtyTitle() != "") { echo $this->profiledata->getSpecialtyTitle(); }?>');
+								fbshare_url = 'http://www.facebook.com/sharer.php?u=' + url + '&t=' + title;
+								openCenteredWindow(fbshare_url);
+								return false;
+							});
+						});
+					</script>
+				</li>
+				<li>
+					<a target="_blank" href="https://twitter.com/share?url=<?php echo curPageURL(); ?>"><img title="Tweet" alt="Tweet" src="/images/twitter_btn.png"></a>
+				</li>
+				<li>
+				<?php 
+					if($this->profiledata->getSpecialtyTitle() != "") {
+						$specialtyTitle = $this->profiledata->getSpecialtyTitle();
+					} else {
+						$specialtyTitle = "";
+					}
+				?>
+					<a target="_blank" href="mailto:?subject=SITENAME.com&amp;body=<?php echo $this->profiledata->getFname();?>, <?php echo $specialtyTitle; ?>: <?php echo curPageURL(); ?>"><img src="/images/email_btn.png" alt="Btn-email"></a>									
+				</li>									
+				<li>
+					<script type="text/javascript" src="https://apis.google.com/js/plusone.js">
+					{lang: 'en'}
+					</script>
+					<g:plusone></g:plusone>
+				</li>
+			</ul>
+		</div>
+	</div>	
+	<div class="right" id="profileRightColumn">
+		<div class="clearfix">
+			<h2 id="docNameTitle" itemprop="name"><span id="specialty"><?php echo $specialtyTitle; ?></span> <?php echo $this->profiledata->getFname();?></h2>
+			<div id="profile_main_info">	
+				<span id="doctor_address">
+					<?php echo $address2lines; ?>
+				</span>
+				<br/>
+				<?php if($this->profiledata->getWebsite() != "http://" && $this->profiledata->getWebsite() != "") { ?>
+				<span id="doctor_website">
+					<a href="<?php echo $this->profiledata->getWebsite(); ?>" title="website" rel="nofollow" target="_blank"><?php echo $this->profiledata->getWebsite(); ?></a>
+				</span>
+				<?php } ?>
+				<?php if($this->profiledata->getAssignPhone() != "") { ?>
+				<span id="doctor_tel">
+					<?php echo $this->profiledata->getAssignPhone();?>
+				</span>	
+				<?php } ?>
+				<?php 
+				if($this->profiledata->getCompany() !="") { ?>
+				<span class="normal_span">
+					<h3><?php echo $this->lang[213]; ?></h3>
+					<p><?php echo $this->profiledata->getCompany();?></p>
+				</span>                        
+				<?php } ?>
+				<!--review -->
+				<?php if($this->rev) { ?>
+				<span class="normal_span" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+					<h3><?php echo $this->lang[565]; ?></h3>
+					<?php $ratingArray = $this->viewreviewobject->getRatingReviews($this->profiledata->getId()); ?>
+					<p><img alt="<?php echo $ratingArray['votes'];?> stars" src="<?echo $this->cdnUri()?>/images/Star-Rating/<?php echo $ratingArray['image'];?>-star.png"></p>
+					<meta content="<?php echo $ratingArray['votes'];?>" itemprop="ratingValue">
+					<meta content="<?php echo count($this->reviewobjectdata); ?>" itemprop="reviewCount">	
+				</span>	
+				<?php } ?>
+				<!-- end of review -->
+			</div>
+			<div id="header_right">
+				<?php if(!empty($this->categorydata)){?>
+				<span class="normal_span">
+					<h3><?php echo $this->lang[215]; ?></h3>
+					<p>
+					<?php foreach($this->categorydata as $catname): 
+							echo $catname;?>&nbsp;
+					<?php endforeach;?>			
+					</p>
+				</span>
+				<?php } ?>
+				<span class="normal_span">				
+					<?php if(count($this->insurancedataArr)>0){ ?>
+					<h3><?php echo $this->lang[217]; ?></h3>
+					<?php
+					$i = 0;
+					foreach($this->insurancedataArr as $key=>$value){
+						$i++;
+						//echo "<li><a href='/search/?search1={$this->profiledata->getZipcode()}&insurance={$key}'>$value</a></li>";
+						echo "<a href='".$this->seoUrl("/search?{$this->lang[934]}={$this->profiledata->getZipcode()}&{$this->lang[935]}={$value}")."'>$value</a>";
+						if($i==4){
+							if($this->planSelected==false && count($this->insurancedataArr)>4){
+								echo "<a href='javascript:;' class='viewIns'>".$this->lang[218]."</a>";
+							}elseif ($this->planSelected==true){
+								echo "<a href='".$this->seoUrl("/profile/view-all-insurances/id/{$this->profiledata->getId()}")."' id='view-all-insurance'>".$this->lang[218]."</a>";
+							}
+						break;
+						}
+					} ?>
+				<?php 
+				if($this->planSelected==false) {
+					if(count($this->insurancedataArr)>4){
+				?>
+					<div id="moreinsurance" style="display:none; overflow: scroll; height: 300px; background:none repeat scroll 0 0 #FFFFFF; border:1px solid #333333; left:4px; padding:10px; position:absolute; bottom:-315px; width:150px; z-index:9999;">
+						<?php foreach($this->insurancedataArr as $key=>$value) { ?>				
+						<a href='<?php echo $this->seoUrl("/search?{$this->lang[934]}={$this->profiledata->getZipcode()}&{$this->lang[935]}={$value}"); ?>'><?php echo $value; ?></a>		    		
+						<?php } ?>		
+					</div>
+					<script language="javascript">
+					jQuery('.viewIns').click(function(){
+						jQuery('#moreinsurance').slideToggle(500);
+						if(jQuery(this).html()=='<?php echo $this->lang[219]; ?>'){
+							jQuery(this).parent().removeClass('org')
+							jQuery(this).html('<?php echo $this->lang[218]; ?>')
+						}else{
+							jQuery(this).parent().addClass('org')
+							jQuery(this).html('<?php echo $this->lang[219]; ?>')
+						}
+					})
+					</script>
+					<?php }
+					}// end if 
+				}// end if ?>
+				</span>	
+			</div>
+		</div>
+		<div id="right_col" class="dataSegment clearfix">		
+			<?php echo $this->render('profile/randezvous.phtml'); ?>
+		</div>
+		<?php if($this->profiledata->getAbout() != "") { ?>
+		<div class="dataSegment">
+			<h3><?php echo $this->lang[221]; ?></h3>
+			<p>
+			<?php 
+				$dataArray = $Doctor->stringToArrayWithNewLines($this->profiledata->getAbout());
+				foreach($dataArray as $key=>$value){
+					if(strlen($value)>1){
+						echo "$value<br/><br/>";
+					}
+				} 
+				?>
+			</p>
+		</div>
+	<?php } ?>
+	<?php if($this->profiledata->getEducation()) { ?>
+		<div class="dataSegment">
+			<h3><?php echo $this->lang[222]; ?></h3>
+			<ul>
+			<?php
+			$dataArray = $Doctor->stringToArrayWithNewLines($this->profiledata->getEducation());
+			foreach($dataArray as $key=>$value){
+				if(strlen($value)>1){
+					echo "<li><span>$value</span></li>";
+				}
+			} ?></ul>
+		</div>
+		<?php } ?>
+		<?php if($this->profiledata->getOfficeHours()!=''){?>
+		<div class="dataSegment">		
+			<h3><?php echo $this->lang[223]; ?></h3>
+			<ul>
+			<?php
+			$Arrofficehour = $Doctor->stringToArray($this->profiledata->getOfficeHours());
+			foreach($Arrofficehour as $key=>$value){
+				if(strlen($value)>1){
+					echo "<li><span>$value</span></li>";
+				}
+			}
+			?>
+			</ul>		
+		</div>
+		<?php } ?>
+		<?php if($this->profiledata->getServices()!=''){ ?>
+		<div class="dataSegment">
+			<h3><?php echo $this->lang[224]; ?></h3>
+			<ul>
+			<?php
+			$dataArray = $Doctor->stringToArrayWithNewLines($this->profiledata->getServices());
+			foreach($dataArray as $key=>$value){
+				echo "<li><span>$value</span></li>";
+			} ?></ul>			
+			
+		</div>
+		<?php } ?>
+		<?php		
+		if($this->profiledata->getPaymentOptions()!="") { ?>
+		<div class="dataSegment">		
+			<h3><?php echo $this->lang[236]; ?></h3>
+			<p><?php echo $this->profiledata->getPaymentOptions(); ?></p>
+		</div>
+		<?php } ?>
+		<?php
+		if($this->profiledata->getHobbies()!="") { ?>
+		<div class="dataSegment">	
+			<h3><?php echo $this->lang[237]; ?></h3>
+			<p>
+				<ul>
+				<?php
+				$dataArray = $Doctor->stringToArrayWithNewLines($this->profiledata->getHobbies());
+				foreach($dataArray as $key=>$value){
+					if(strlen($value)>1){
+						echo "<li><span>$value</span></li>";
+					}
+				} ?>
+				</ul>
+			</p>
+		</div>
+		<?php } ?>
+		<?php  if(count($this->hospitalAffiliation) != 0){ ?>
+		<div class="dataSegment">
+			<h3><?php echo $this->lang[226]; ?></h3>
+			<ul class="noBullets">
+			<?php
+			foreach($this->hospitalAffiliation as $key=>$value){
+				if($this->hospitalAffiliation[$key]['logo'] != "") {
+				?>
+				<li class="clearfix">
+					<?php if($this->hospitalAffiliation[$key]['logo'] != "") { ?>
+					<img src='/images/hospitals/<?php echo $this->hospitalAffiliation[$key]['logo'] ?>' alt='logo'/>
+					<?php } else { ?>
+					<img src='/images/blue_bullet.png' alt='logo' class="nologoBullet left"/>
+					<?php } ?>
+					<div class="affiliateName"><span><?php echo trim($this->hospitalAffiliation[$key]['name']) ?></span></div>
+				</li>
+				<?php
+				} else {
+				echo "<li><span>".trim($this->hospitalAffiliation[$key]['name'])."</span></li>";
+				}
+			} ?></ul>
+		</div>
+		<?php } ?>
+		<?php  if($this->profiledata->getAssociates()!=''){ ?>
+		<div class="dataSegment">
+			<h3><?php echo $this->lang[227]; ?></h3>
+			<ul class="noBullets">
+			<?php
+			$dataArray = $Doctor->stringToArrayWithNewLines($this->profiledata->getAssociates());
+			foreach($dataArray as $key=>$value){
+				if(strlen($value)>1){
+					echo "<li><span>".stripslashes($value)."</span></li>";
+				}
+			} ?></ul>
+		</div>
+		<?php } ?>
+		<?php  if($this->profiledata->getTextAward()!=''){ ?>
+		<div class="dataSegment">
+			<h3><?php echo $this->lang[228]; ?></h3>
+			<ul>
+			<?php
+			$dataArray = $Doctor->stringToArrayWithNewLines($this->profiledata->getTextAward());
+			foreach($dataArray as $key=>$value){
+				if(strlen($value)>1){
+					echo "<li><span>$value</span></li>";
+				}
+			} ?></ul>
+		</div>
+		<?php } ?>
+		<?php  
+		if(!empty($this->associations)){?>
+		<div class="dataSegment sideImager">
+			<h3><?php echo $this->lang[229]; ?></h3>
+			<ul class="noBullets">
+			<?php
+			$dataArray = $Doctor->stringToArray($this->profiledata->getAssociation());
+			foreach($this->associations as $assoc) { ?>
+				<li class="clearfix">
+					<?php if($assoc->getLogo() != "") { ?> 
+					<img width="50px" src="/images/association/<?php echo $assoc->getLogo();?>" alt="<?php echo $assoc->getAssociation();?>" class="left"/>
+					<?php } else { ?>
+					<img src='/images/blue_bullet.png' alt='logo' class="nologoBullet left"/>
+					<?php } ?>
+					<div class="affiliateName left"><span class="associate-txt"><?php echo $assoc->getAssociation();?></span></div>
+				</li>
+			<?php		
+			} ?>
+			</ul>			
+		</div>
+		<?php } ?>
+		<div class="dataSegment">
+			
+	<!-- VIDEO -->
+			<?php  if($this->profiledata->getVideo()!=''){ ?>
+			<h5 class="galleryTitle left"><?php echo $this->lang[230]; ?></h5>
+			<div id="video_gallery" class="main_box">
+				<iframe width="650" height="471" src="http://www.youtube.com/embed/<?php echo $this->profiledata->getVideo(); ?>" frameborder="0" allowfullscreen></iframe>		
+			</div>
+			<?php } ?>
+	<!-- PHOTOGALLERY -->
+			<?php  if($this->profiledata->getPhotos()!=''){ ?>
+			<h5 class="galleryTitle left"><?php echo $this->lang[231]; ?></h5>
+			<div id="photo_gallery" class="main_box">
+				<?php echo stripslashes($this->profiledata->getPhotos()); ?>			
+			</div>
+			<?php } ?>
+		</div>
+		
+	<!-- reviews -->
+		<?php 
+		if($this->rev) {
+			include('doctor_review.phtml'); 
+		} ?>
+	</div>
+</div>
+<?php
+if($this->profiledata->getGeocode()) {
+	$initGeo = trim($this->profiledata->getGeocode());
+
+	if($initGeo==''){
+		$settings = new Admin_Model_GlobalSettings();
+		$longtitude = $settings->settingValue('longtitude');
+		$latitude = $settings->settingValue('latitude');
+		if ($result) {
+			$initGeo = "{$latitude},{$longtitude}";
+		}
+	}
+
+	$config = new Zend_Config_Ini(APPLICATION_PATH.'/configs/'.APPLICATION_INI, APPLICATION_ENV);
+	?>
+	
+<script src="//maps.googleapis.com/maps/api/js?sensor=false&amp;language=en" type="text/javascript"></script>
+<?php $this->headScript()->appendFile("/js/jquery.scrollTo-1.4.2-min.js"); ?>
+<?php $this->headScript()->appendFile("/js/jquery.localscroll-1.2.7-min.js"); ?>
+<script type="text/javascript">
+
+
+jQuery(document).ready(function(){
+//            $(".book-appointment").fancybox({
+//               //showCloseButton: false
+//            });
+			$('div.jqtransform').jqTransform();
+            $(".book-appointment").fancybox({
+				'width' : 935,
+				'height' : 600,
+                'autoScale' : true,
+                'transitionIn' : 'none',
+				'transitionOut' : 'none',
+				'autoDimensionst' : false,
+				'type' : 'iframe',
+                'onStart': function(){
+                     $('div#fancybox-outer').removeClass('all-insurance');
+                }
+            });
+            $("#view-all-insurance").fancybox({
+                ajax : {
+					'type'	: "POST"
+				},
+                'onStart': function(){
+                     $('div#fancybox-outer').addClass('all-insurance');
+                }
+            });
+			
+	
+        })
+
+   
+    
+    /* Google maps */    
+    function initialize() {
+        var map = new google.maps.Map(document.getElementById("map_canvas"),{
+			zoom: 16,
+			mapTypeId: google.maps.MapTypeId.ROADMAP
+		});
+
+        var str = '<?php echo $initGeo;?>';
+        var brk = str.split(',');
+        var latitude = parseFloat(brk[0]);
+        var longitude = parseFloat(brk[1]);
+        map.setCenter(new google.maps.LatLng(latitude,longitude), 16);
+
+		var marker = new google.maps.Marker({
+			position: new google.maps.LatLng(latitude,longitude),
+			map: map,
+			icon: "/images/markers/marker0.png"
+		});
+		var infoWindow = new google.maps.InfoWindow();
+		infoWindow.setContent('<?php echo "<span style=\"font:normal 12px arial;\"><b>".addslashes($this->profiledata->getFname())."</b><br />".addslashes($this->profiledata->getStreet())."<br />".addslashes($this->profiledata->getCity()).", ".addslashes($this->profiledata->getState())." ".$this->profiledata->getZipcode()."</span>";?>');
+		google.maps.event.addListener(marker, "mouseover", function() {
+            infoWindow.open(map,marker);
+	    });
+      
+    }
+
+
+	google.maps.event.addDomListener(window, 'load', initialize);
+
+    </script>
+	<?php
+}
+?>

@@ -1,0 +1,79 @@
+<?php
+
+    $TimeSlot = new Base_Timeslot();
+
+    $slotsAvailable = $TimeSlot->getDoctorTimeSlots($this->docObject->getId(), $this->date);
+   
+?>
+<div id="rightsidemain">
+    <div id="rightcontentpart">
+        <form name="frmSlot" action="/user/timeslot/update/" method="post">
+            <table align="left" width="100%" cellpadding="5" cellspacing="2" border="0" style="background:#fff;">
+                <tr>
+                  <th colspan="3" align="center" height="10"></th>
+                </tr>
+                <tr>
+                    <th colspan="3" align="center"><?php echo $this->lang[524]; ?> : <?php echo $this->docObject->getFname(); ?><br />
+					<?php echo $this->lang[525]; ?>: <?php echo strftime("%a, %d-%B %Y", strtotime($this->date)); ?></th>
+                </tr>
+                <tr>
+                  <th colspan="3" align="center" height="10"></th>
+                </tr>
+                <tr>
+                    <td width="49%" align="right" valign="top"><strong><?php echo $this->lang[526]; ?> :</strong><br /><br /></td>
+                    <td width="1%" rowspan="2" align="right">&nbsp;</td>
+                    <td width="50%" rowspan="2">
+                        <?php
+                            if($slotsAvailable){
+                                echo '<input type="checkbox" value="1" id="checkall" name="checkall"> <strong>'.$this->lang[527].'</strong><br />';
+                            }
+                            $isDeletedSlot = $TimeSlot->isDeletedSlot($this->docObject->getId(), $this->date);
+                            foreach($slotsAvailable as $slot){
+                                $checked = "";
+								$slot1 = str_replace('πμ', 'AM', $slot);
+								$slot1 = str_replace('μμ', 'PM', $slot1);
+                                if($isDeletedSlot===false){ // first check if all the slots had deleted for this date.
+                                    if(!empty($slotsForDay)){
+                                        if(in_array($slot, $slotsForDay))$checked = "checked=\"checked\"";
+                                    }else{
+                                        $checked = "checked=\"checked\"";
+                                    }
+                                }
+                                echo "<input type=\"checkbox\" id=\"displayCheck\" name=\"displayCheck[]\" {$checked} value=\"{$slot1}\"> {$slot}<br>";
+                            }
+                        ?>
+                        <!--textarea name="slots" cols="10" rows="20"><?php //echo $this->timeSlots; ?></textarea-->
+                    </td>
+                </tr>
+                <tr>
+                  <td align="right" valign="top"><?php echo $this->lang[528]; ?></td>
+                </tr>
+                <tr>
+                    <td align="center" colspan="3">
+                        <input type="hidden" name="date" value="<?php echo $this->date; ?>" />
+                        <input type="hidden" name="drid" value="<?php echo $this->docObject->getId(); ?>" />
+                        <input type="button" name="back" value="<?php echo $this->lang[263]; ?>" onclick="history.back();" />
+                        <input type="submit" name="submit" value="<?php echo $this->lang[279]; ?> " />
+                    </td>
+                </tr>
+                <tr>
+                  <td align="center" colspan="3">&nbsp;</td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+<script language="javascript">
+$(document).ready(function(){
+    $("#checkall").click(function(){
+        if($(this).attr('checked')){
+            var checked_status = true;
+        }else{
+            var checked_status = false;
+        }
+        $("input[id='displayCheck']").each(function(){
+            this.checked = checked_status;
+        });
+    });
+});
+</script>

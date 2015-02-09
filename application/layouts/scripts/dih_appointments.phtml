@@ -1,0 +1,87 @@
+<?php echo $this->doctype() ?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-gb">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<?php
+        echo $this->headTitle();
+        echo $this->metaImage();
+        echo $this->headMeta();
+        $this->headLink()->appendStylesheet('/style/style.css');
+		if($this->controllerName=='profile'){
+			$this->headLink()->appendStylesheet('/style/profile.css');
+		} else if($this->controllerName=='search'){
+			$this->headLink()->appendStylesheet('/style/list.css');
+		}
+        echo $this->headLink();
+				
+        echo $this->headScript();
+        ?>
+		<link type="text/css" rel="stylesheet" media="screen" href="/style/general_pages.css">		
+		<?php $this->headLink()->appendStylesheet('/style/custom.css'); ?>
+		<!--[if IE 6]>
+			<link href="/style/ie6only.css" media="screen" rel="stylesheet" type="text/css" />
+		<![endif]-->
+		<?php echo $this->render("/page/googlecode.phtml"); ?>
+
+</head>
+
+<body>
+	<div id="wrapper">    	
+		<!-- Header HTML -->
+		<?php echo $this->render("/page/header.phtml"); ?>				
+		<img src="images/top_shadow.png" id="top_shadow" />
+		<div id="shadow">			
+			<!-- Content Area HTML -->
+			<?php echo $this->layout()->content ?>			
+		</div>
+		<?php if($this->controllerName=='search') { ?>
+		<div id="pagination">
+			<div>
+				<!-- First page link -->
+				<?php
+			   $arrayLink=array();
+			   if(is_array($this->linkArray))
+					$arrayLink=$this->linkArray;
+				?>
+				<!-- Previous page link -->
+				<?php if (isset($this->previous)): ?>
+					<a href="<?= $this->url(array_merge(array('page' => $this->previous),$arrayLink)); ?>"><span>Previous</span></a>
+				<?php else: ?>
+					<a href="#"><span class="disabled">Previous</span></a>
+				<?php endif; ?>
+				<!-- Numbered page links -->
+				<?php 
+				$pagesCount=0;
+				foreach ($this->pagesInRange as $page): 
+					$pagesCount++;
+					if ($page != $this->current): ?>
+						<a href="<?= $this->url(array_merge(array('page' => $page),$arrayLink)); ?>"><span><?= $page; ?></span></a>
+					<?php else: ?>
+						<a href="#" class="selected_pag"><span class="current"><?= $page; ?></span></a>
+					<?php endif; ?>
+				<?php endforeach; 
+				if($pagesCount==0) {
+				?>
+					<a href="#" class="selected_pag"><span class="current">1</span></a>
+				<?php
+				}
+				?>				
+				<!-- Next page link -->
+				<?php if (isset($this->next)): ?>
+						<a href="<?= $this->url(array_merge(array('page' => $this->next),$arrayLink)); ?>"><span>Next</span></a>
+				<?php else: ?>
+						<a href="#"><span class="disabled">Next</span></a>
+				<?php endif; ?>
+			</div>
+		</div>	
+		<?php } else { ?>
+		<img src="images/bottom_shadow.png" id="bottom_shadow" />
+		<?php } ?>
+		<!-- footer HTML -->
+		<?php echo $this->render("/page/footer.phtml"); ?> 
+  	</div>
+</body>
+</html>
+

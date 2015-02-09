@@ -1,0 +1,107 @@
+<script type="text/javascript" language="javascript">
+function passchecker() {
+	if(document.getElementById("password").value!="") {
+		if(document.getElementById("password").value.length<6) {
+			alert("<?php echo $this->lang[192]; ?>");
+			return false;
+		}
+		else if(document.getElementById("password").value!=document.getElementById("confirmPassword").value) {
+			alert("<?php echo $this->lang[519]; ?>");
+			return false;
+		}
+	}
+	return true;
+}
+</script>
+
+
+<div class="inner_wrapperReg">
+	
+	<div class="clearfix">
+		<div class="patientMenuWrap left">
+			<h2><?php echo $this->lang[488]; ?></h2>
+			<ul id="patientMenu">
+				<li><a href="/user"><?php echo $this->lang[489]; ?></a></li>
+				<li><a href="/user/index/patient-edit"  class="current"><?php echo $this->lang[490]; ?></a></li>
+				<li><a class="schedule-app-btn-sml" href="/"><?php echo $this->lang[491]; ?></a></li>
+			</ul>
+		</div>
+		<div class="patientData right">
+			<h1><?php echo $this->lang[31]; ?></h1>
+			<form method="post" action="<?php echo $this->form->action?>" class="patEdit">
+				<table cellspacing="0" cellpadding="0" border="0" class="profile-edit">
+					<tbody>
+						<tr>
+							<td colspan="2"><span class='red'><?php echo $this->msg; ?></span></td></tr>
+						</tr>
+						<tr>
+							<td class="label"><label for="name"><?php echo $this->lang[112]; ?>:</label></td>
+							<td class="element"><?php echo $this->form->name;?></td>
+						</tr>
+						<tr>
+							<td class="label"><label for="last_name"><?php echo $this->lang[549]; ?>:</label></td>
+							<td class="element"><?php echo $this->form->last_name;?></td>
+						</tr>
+						<tr>
+							<td class="label"><label for="zipcode"><?php echo $this->lang[450]; ?>:</label></td>
+							<td class="element"><?php echo $this->form->zipcode;?></td>
+						</tr>
+						<tr>
+			                <td class="label"><label for="dateofbirth">Date of Birth:</label></td>
+			                <td class="element">
+			                	<?php echo $this->form->month_dob . "&nbsp;" . $this->form->date_dob . "&nbsp;" . $this->form->year_dob; ?>
+		                        <ul class="errors">
+		                        <?php
+		                            if(isset($errors['month']))echo "<li>" . $errors['month'] . "</li>";
+		                            if(isset($errors['day']))echo "<li>" . $errors['day'] . "</li>";
+		                            if(isset($errors['year']))echo "<li>" . $errors['year'] . "</li>";
+		                            ?>
+		                        </ul>
+			                </td>
+			            </tr>
+						<tr>
+							<td class="label"><label for="phone"><?php echo $this->lang[113]; ?>:</label></td>
+							<td class="element"><?php echo $this->form->phone;?></td>
+						</tr>
+						<tr>
+							<td class="label"><label for="gender"><?php echo $this->lang[116]; ?>:</label></td>
+							<td class="element"><?php echo $this->form->gender;?></td>
+						</tr>
+						<tr>
+							<td class="label"><label for="email"><?php echo $this->lang[104]; ?>:</label></td>
+							<td class="element"><?php echo $this->form->email;?></td>
+						</tr>
+						<tr>
+							<td colspan="2">
+								<ul class="errors">
+									<?php $errors = $this->form->getErrorMessages();
+									if(!empty($errors))foreach($errors as $error)echo "<li>".$error."</li>";
+									?>
+								</ul>
+							</td>
+						</tr>
+						<tr>
+							<td class="label"><label for="password"><?php echo $this->lang[105]; ?>:</label></td>
+							<td class="element"><?php echo $this->form->password;?></td>
+						</tr>
+						<tr>
+							<td class="label"><label for="confirmpassword"><?php echo $this->lang[185]; ?>:</label></td>
+							<td class="element"><?php echo $this->form->confirmPassword;?></td>
+						</tr>
+						<tr>
+							<td class="label"><label for="insurance"><?php echo $this->lang[52]; ?>:</label></td>
+							<td class="element">							
+							   <?php echo $this->form->insurance; ?>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2">
+								<input type="submit" onclick="return passchecker();" tabindex="20" class="save-btn" value="" id="submit" name="submit" />
+							</td>
+						</tr>			
+					</tbody>
+				</table>
+			</form>
+		</div>
+	</div>
+</div>

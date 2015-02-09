@@ -1,0 +1,89 @@
+<?php
+$settings = new Admin_Model_GlobalSettings();
+$locale = $settings->settingValue('locale');
+setlocale(LC_ALL, $locale);
+
+$hours = $settings->settingValue('hours');
+if($hours) {
+	$timeFormat = "%I:%M %P";
+} else {
+	$timeFormat = "%H:%M";
+}
+
+$Calendar = new Zend_Session_Namespace("calendar");
+$usersNs = new Zend_Session_Namespace("members");
+
+if ($this->tab != '') {
+    $Calendar->BACKPAGE = $_SERVER['QUERY_STRING'];
+} else {
+    $Calendar->BACKPAGE = $_SERVER['QUERY_STRING'] . '/tab/month';
+}
+$todayDay=date('t',$Calendar->TODAY);
+$start=$Calendar->TODAY;
+$start=$start - ((date('j',$start) -1) * 24 * 60 * 60);
+$end=$start + ($todayDay * 24 * 60 * 60);
+
+$nextMonth=strtotime( '+1 month', $Calendar->TODAY ) ;
+$prevtMonth=strtotime( '-1 month', $Calendar->TODAY ) ;
+$PHPCalendar = new Base_PHPCalendar();
+$Doctor = new Application_Model_Doctor();
+$docObject = $Doctor->fetchRow("user_id='{$usersNs->userId}'");
+$Appointment = new Application_Model_Appointment();
+$appObject = $Appointment->fetchAll("appointment_date>='".date('Y-m-d',$start)."' AND  appointment_date<='".date('Y-m-d',$end)."' AND doctor_id='{$docObject->getId()}' AND approve NOT IN ('2') AND deleted!=1");
+
+$firstWeekDay=date('N',$start);
+
+
+?>
+<div id="divMonth">
+	<!-- MONTH_DATA -->
+	<div class="cal-navi">
+
+		<div class="f-left">
+			<a onclick="nextDay('/user/index/ajax-appointment/today/<?php print $prevtMonth;?>/tab/month','<?php print $prevtMonth;?>');return false;"  class="smallButton left" id="prevButton"  href="#"> « </a>
+			<a href="#" onclick="nextDay('/user/index/ajax-appointment/today/<?php print $nextMonth;?>/tab/month','<?php print $nextMonth;?>'); return false;" class="smallButton left" id="nextButton"> » </a>
+			<span class="date"><?php print strftime('%B %Y',$Calendar->TODAY);?></span>
+		</div>
+		<div class="f-right"><img src="/images/color-menu.png" alt="" /></div>
+	</div>
+	<table width="100%" cellpadding="0" cellspacing="0" border="0" class="monthly-view">
+		<tr>
+			<th><?php echo $this->lang[271]; ?></th>
+			<th><?php echo $this->lang[272]; ?></th>
+			<th><?php echo $this->lang[266]; ?></th>
+			<th><?php echo $this->lang[267]; ?></th>
+			<th><?php echo $this->lang[268]; ?></th>
+			<th><?php echo $this->lang[269]; ?></th>
+			<th><?php echo $this->lang[270]; ?></th>
+		</tr>
+		<?php
+		$counter=0;
+		$td=$todayDay;
+		$loopStart=1-$firstWeekDay;
+		$loopEnd=$todayDay+(7-$firstWeekDay);
+
+		for($loopStart;$loopStart<=$loopEnd;$loopStart++){
+			if($counter%7==0){
+				if($counter==0){
+					print "<tr>";
+				}else{
+					print "</tr><tr>";
+				}
+			}
+			if($loopStart > 0 && $loopStart <= $todayDay){
+				$cls='this-month';
+				if($loopStart==date('d',$Calendar->TODAY)){
+					$cls='today';
+				}
+				print '<td class="'.$cls.'"><div class="day-title">'. $loopStart.'</div>';
+				print '<div class="day-content">'. $PHPCalendar->getApp($appObject, $loopStart, $docObject, $Calendar->TODAY).'</div>';
+				print '</td>';
+			}else{
+				print "<td class='next-month'>&nbsp;</td>";
+			}
+			$counter++;
+		}
+		?>
+</table>
+<!-- MONTH_DATA -->
+</div>

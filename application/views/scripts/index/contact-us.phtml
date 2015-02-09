@@ -1,0 +1,93 @@
+<?php $this->headLink()->appendStylesheet('/style/contact.css'); ?>
+<div class="inner_wrapperReg clearfix">
+	<div id="searchHeaderReg" class="clearfix">
+		<h1 class="left" id="termsTitle"><?php echo $this->lang[134]; ?></h1>
+	</div>
+	<div class="clearfix" id="sitemapWrapper">		
+		<form onsubmit="return validateForm(this);" name="emailForm" method="post" class="contact-left form-validate left" action="<?php echo $this->form->action; ?>">
+			<h2><?php echo $this->lang[142]; ?></h2>
+			<div>
+				<label for="first_name"><?php echo $this->lang[112]; ?></label>
+				<input type="text" name="first_name" id="first_name" value="<?php echo $first_name; ?>"/>
+			</div>
+
+			<div>
+				<label for="last_name"><?php echo $this->lang[143]; ?></label>
+				<input type="text" name="last_name" id="last_name" value="<?php echo $last_name; ?>"/>
+			</div>
+
+			<div>
+				<label for="email"><?php echo $this->lang[104]; ?></label>
+				<input type="text" name="email" id="email" value="<?php echo $email_from; ?>"/>
+			</div>
+			
+			<div>
+				<label for="title"><?php echo $this->lang[144]; ?></label>
+				<input type="text" name="subject" id="title" value="<?php echo $subject; ?>"/>
+			</div>
+			
+			<div>
+				<label for="mail_body"><?php echo $this->lang[145]; ?></label>
+				<textarea name="enquiry" id="mail_body"><?php echo $enquiry; ?></textarea>
+			</div>
+			
+			<div id="sendCopyWrap">
+				<input type="checkbox" tabindex="6" class="inputbox" value="1" id="email_copy" name="email_copy"><label for="email_copy"><?php echo $this->lang[146]; ?> </label> 
+			</div>
+			<input type="submit" tabindex="7" class="send-btn" value="" id="submit" name="submit">
+		</form>
+	</div>
+</div>
+<div id="error" style="display:none">
+	<span id="errorMessage"></span>
+</div>
+<a href="#error" id="errorLauncher"></a>
+<script type="text/javascript">
+	
+    function validateForm( frm ) {
+        error_msg="<div id='errorbox'><h4><?php echo $this->lang[148]; ?></h4><ul id='errorList'>";
+        error_flag = 1;
+
+        if(jQuery.trim(frm.first_name.value)==""){
+            error_msg = error_msg + "<li><?php echo $this->lang[149]; ?></li>";
+            error_flag = 0;
+        }
+        if(jQuery.trim(frm.last_name.value)==""){
+            error_msg = error_msg + "<li><?php echo $this->lang[150]; ?></li>";
+            error_flag = 0;
+        }
+        var filter=/^.+@.+\..{2,3}$/
+        if(jQuery.trim(frm.email.value)=="" || !filter.test(frm.email.value)){
+            error_msg = error_msg + "<li><?php echo $this->lang[151]; ?></li>";
+            error_flag = 0;
+        }
+        if(jQuery.trim(frm.subject.value)==""){
+            error_msg = error_msg + "<li><?php echo $this->lang[152]; ?></li>";
+            error_flag = 0;
+        }
+        if(jQuery.trim(frm.enquiry.value)==""){
+            error_msg = error_msg + "<li><?php echo $this->lang[153]; ?></li>";
+            error_flag = 0;
+        }
+		error_msg += "</ul></div>";
+        if(!error_flag)
+        {
+           // alert(error_msg);
+			$("#errorMessage").html(""); //clean any previous messages
+			$("#errorMessage").html(error_msg);
+			$("#errorLauncher").fancybox({
+				'width' : 200,
+				'height' : 300,
+				'autoScale' : true,
+				'transitionIn' : 'none',
+				'transitionOut' : 'none',
+				'autoDimensionst' : false,
+				'hideOnContentClick': true,
+				'content': error_msg
+			});
+			$("#errorLauncher").click();
+            return false;
+        }
+        return true;
+    }
+</script>

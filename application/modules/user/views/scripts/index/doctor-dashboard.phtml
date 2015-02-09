@@ -1,0 +1,363 @@
+<?php
+$start = time();
+$start = $start - (date('N') * 24 * 60 * 60);
+$end = $start + (7 * 24 * 60 * 60);
+?>
+
+<div class="table-container">
+    <h2><?php echo $this->lang[507]; ?> - <?php echo strftime('%d %b, %Y'); ?></h2>
+	<div class="calTop">	
+		<table width="100%" cellspacing="0" cellpadding="0" border="0" align="center" class="appointment-table-heading">
+			<tbody>
+				<tr>
+					<th width="20%"><?php echo $this->lang[508]; ?></th>
+					<th width="20%"><?php echo $this->lang[104]; ?></th>
+					<th width="20%" style="padding-left: 10px;"><?php echo $this->lang[509]; ?></th>
+					<th width="20%" style="padding-left: 10px;"><?php echo $this->lang[510]; ?></th>
+					<th width="20%" style="padding-left: 10px;"><?php echo $this->lang[290]; ?></th>
+				</tr>
+			</tbody>
+		</table>
+		<div class="middleShadow">&nbsp;</div>
+	</div>
+	<div class="sidescroll">
+		<table width="100%" cellspacing="0" cellpadding="0" border="0" align="center" class="appointment-table">
+			<tbody>
+				<?php
+				if (count($this->object) > 0) {
+					$ctr = 0;
+					foreach ($this->object as $row) {
+						$count = 0;
+						if ($row->getAppointmentDate() != date('Y-m-d')) {
+							continue;
+						}
+						$ctr++;
+
+						$class = 'odd';
+						if ($count % 2 == 0) {
+							$class = 'even';
+						}
+						$count++;
+						$status = $row->getNewAppointmentStatus("id ={$row->getId()}");
+						$path = "user/index/view-appointment/appid/" . $row->getId() . "/tab/day";
+				?>
+						<tr onclick="window.open('<?php echo $path; ?>','_top')" class="<?php print $class; ?>" onmouseout="this.className='<?php print $class; ?>'" onmouseover="this.className='tr-over'" style="cursor:pointer">
+							<td width="20%"><?php echo $row->getFname(); ?></td>
+							<td width="20%"><?php echo $row->getEmail(); ?></td>
+							<td width="20%"><?php echo date($this->dateFormat, strtotime($row->getAppointmentDate())) . "&nbsp;&nbsp;&nbsp;&nbsp;" . strftime($this->timeformat, strtotime($row->getAppointmentTime())); ?></td>
+							<td width="20%"><a href='<?php echo $path; ?>'><?php echo $this->lang[511]; ?></a></td>
+							<td width="20%"><?php echo $status; ?></td>
+						</tr>
+				<?php
+					}
+
+					if ($ctr < 4) {
+						$count--;
+						for ($i = $ctr; $i <= 4; $i++) {
+							$class = 'odd';
+							if ($count % 2 == 0) {
+								$class = 'even';
+							}
+							$count++;
+				?>
+							<tr class="<?php print $class; ?>" >
+								<td width="20%" >&nbsp;</td>
+								<td width="20%" >&nbsp;</td>
+								<td width="20%" >&nbsp;</td>
+								<td width="20%" >&nbsp;</td>
+								<td width="20%" >&nbsp;</td>
+							</tr>
+				<?php
+						}
+					}
+				?>
+					</tr>
+				<?php
+                } else {
+				?>
+				<tr class="odd">
+					<td width="20%">&nbsp;</td>
+					<td width="20%">&nbsp;</td>
+					<td width="20%">&nbsp;</td>
+					<td width="20%">&nbsp;</td>
+					<td width="20%">&nbsp;</td>
+				</tr>
+				<tr class="even">
+					<td >&nbsp;</td>
+					<td >&nbsp;</td>
+					<td ><?php echo $this->lang[292]; ?></td>
+					<td >&nbsp;</td>
+					<td >&nbsp;</td>
+				</tr>
+				<tr class="odd">
+					<td >&nbsp;</td>
+					<td >&nbsp;</td>
+					<td >&nbsp;</td>
+					<td >&nbsp;</td>
+					<td >&nbsp;</td>
+				</tr>
+				<tr class="even">
+					<td >&nbsp;</td>
+					<td >&nbsp;</td>
+					<td >&nbsp;</td>
+					<td >&nbsp;</td>
+					<td >&nbsp;</td>
+				</tr>
+				<tr class="odd">
+					<td >&nbsp;</td>
+					<td >&nbsp;</td>
+					<td >&nbsp;</td>
+					<td >&nbsp;</td>
+					<td >&nbsp;</td>
+				</tr>
+				<?php
+                }
+				?>
+			</tbody>
+		</table>
+	</div>
+</div>
+
+<!---------------                    Week Booking       ------------------->
+
+<div class="table-container">
+	<h2><?php echo $this->lang[512]; ?>
+		<span>
+		<?php print strftime('%d ', $start); ?>
+		<?php
+			if (date('m', $start) == date('m', $end - 86400)) {
+				print strftime('- %d %b, %Y', $end - 86400);
+			} else {
+				print strftime('%b -', $start);
+				print strftime(' %d %b, %Y ', $end - 86400);
+			}
+		?>
+		</span>
+	</h2>
+	<div class="calTop">
+		<table width="100%" cellspacing="0" cellpadding="0" border="0" align="center" class="appointment-table-heading">
+			<tbody>
+				<tr>
+					<th width="20%"><?php echo $this->lang[287]; ?></th>
+					<th width="20%"><?php echo $this->lang[104]; ?></th>
+					<th width="20%" style="padding-left: 10px;"><?php echo $this->lang[509]; ?></th>
+					<th width="20%" style="padding-left: 10px;"><?php echo $this->lang[510]; ?></th>
+					<th width="20%" style="padding-left: 10px;"><?php echo $this->lang[290]; ?></th>
+				</tr>
+			</tbody>
+		</table>
+		<div class="middleShadow">&nbsp;</div>
+	</div>
+	<div class="sidescroll">
+		<table width="100%" cellspacing="0" cellpadding="0" border="0" align="center" class="appointment-table">
+			<tbody>
+                <?php
+                if (count($this->object) > 0) {
+
+                    $ctr = 0;
+                    $start = time();
+                    $start = $start - (date('N') * 24 * 60 * 60);
+                    $end = $start + (7 * 24 * 60 * 60);
+                    $count = 0;
+                    foreach ($this->object as $row) {
+                        $current = mktime(0, 0, 0, date('m', strtotime($row->getAppointmentDate())), date('d', strtotime($row->getAppointmentDate())), date('Y', strtotime($row->getAppointmentDate())));
+                        if ($current >= $start && $current <= $end) {
+
+                            $class = 'odd';
+                            if ($count % 2 == 0) {
+                                $class = 'even';
+                            }
+                            $count++;
+                            $ctr++;
+                            $path = "user/index/view-appointment/appid/" . $row->getId() . "/tab/week";
+                            $status = "";
+                            $status = $row->getNewAppointmentStatus("id ={$row->getId()}");
+                ?>
+                            <tr onclick="window.open('<?php echo $path; ?>','_top')" class="<?php print $class; ?>" onmouseout="this.className='<?php print $class; ?>'" onmouseover="this.className='tr-over'" style="cursor:pointer">
+                                <td width="20%"><?php echo $row->getFname(); ?></td>
+                                <td width="20%"><?php echo $row->getEmail(); ?></td>
+								<td width="20%"><?php echo date($this->dateFormat, strtotime($row->getAppointmentDate())) . "&nbsp;&nbsp;&nbsp;&nbsp;" . strftime($this->timeformat, strtotime($row->getAppointmentTime())); ?></td>
+                                <td width="20%" ><a href='<?php echo $path; ?>'><?php echo $this->lang[511]; ?></a></td>
+                                <td width="20%"><?php echo $status; ?></td>
+                            </tr>
+                <?php
+                        }
+                    }
+                    if ($ctr < 4) {
+                        $count--;
+                        for ($i = $ctr; $i <= 4; $i++) {
+                            $class = 'odd';
+                            if ($count % 2 == 0) {
+                                $class = 'even';
+                            }
+                            $count++;
+                ?>
+                            <tr class="<?php print $class; ?>" >
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                <?php
+                        }
+                    }
+                } else { ?>
+				</tr>
+					<tr class="odd">
+					<td width="20%">&nbsp;</td>
+					<td width="20%">&nbsp;</td>
+					<td width="20%">&nbsp;</td>
+					<td width="20%">&nbsp;</td>
+					<td width="20%">&nbsp;</td>
+				</tr>
+				<tr class="even">
+					<td >&nbsp;</td>
+					<td >&nbsp;</td>
+					<td ><?php echo $this->lang[292]; ?></td>
+					<td >&nbsp;</td>
+					<td >&nbsp;</td>
+				</tr>
+				<tr class="odd">
+					<td >&nbsp;</td>
+					<td >&nbsp;</td>
+					<td >&nbsp;</td>
+					<td >&nbsp;</td>
+					<td >&nbsp;</td>
+				</tr>
+				<tr class="even">
+					<td >&nbsp;</td>
+					<td >&nbsp;</td>
+					<td >&nbsp;</td>
+					<td >&nbsp;</td>
+					<td >&nbsp;</td>
+				</tr>
+				<tr class="odd">
+					<td >&nbsp;</td>
+					<td >&nbsp;</td>
+					<td >&nbsp;</td>
+					<td >&nbsp;</td>
+					<td >&nbsp;</td>
+				</tr>
+				<?php
+                }
+				?>
+			</tbody>
+		</table>
+	</div>
+</div>
+
+	<!---------------                    Month Booking       ------------------->
+
+<div class="table-container">
+	<h2><?php echo $this->lang[513]; ?> - <?php print strftime('%B %Y'); ?></h2>
+	<div class="calTop">
+		<table width="100%" cellspacing="0" cellpadding="0" border="0" align="center" class="appointment-table-heading">
+			<tbody>
+				<tr>
+					<th width="20%"><?php echo $this->lang[508]; ?></th>
+					<th width="20%"><?php echo $this->lang[104]; ?></th>
+					<th width="20%" style="padding-left: 10px;"><?php echo $this->lang[509]; ?></th>
+					<th width="20%" style="padding-left: 10px;"><?php echo $this->lang[510]; ?></th>
+					<th width="20%" style="padding-left: 10px;"><?php echo $this->lang[290]; ?></th>					
+				</tr>
+			</tbody>
+		</table>
+		<div class="middleShadow">&nbsp;</div>
+	</div>
+	<div class="sidescroll">
+		<table width="100%" cellspacing="0" cellpadding="0" border="0" align="center" class="appointment-table">
+			<tbody>
+                <?php
+                if (count($this->object) > 0) {
+                    $count = 0;
+                    $ctr = 0;
+                    foreach ($this->object as $row) {
+                        $month = date('m', strtotime($row->getAppointmentDate()));
+                        $year = date('Y', strtotime($row->getAppointmentDate()));
+                        if ($month = date('m') && $year = date('Y')) {
+                            $class = 'blue';
+                            if ($count % 2 == 0) {
+                                $class = 'light-blue';
+                            }
+                            $count++;
+                            $ctr++;
+                            $status = $row->getNewAppointmentStatus("id ={$row->getId()}");
+                            $path = "user/index/view-appointment/appid/" . $row->getId() . "/tab/month";
+                ?>
+				<tr onclick="window.open('<?php echo $path; ?>','_top')" class="<?php print $class; ?>" onmouseout="this.className='<?php print $class; ?>'" onmouseover="this.className='tr-over'" style="cursor:pointer">
+					<td width="10%"><?php echo $row->getFname(); ?></td>
+					<td width="20%"><?php echo $row->getEmail(); ?></td>
+					<td width="20%"><?php echo date($this->dateFormat, strtotime($row->getAppointmentDate())) . "&nbsp;&nbsp;&nbsp;&nbsp;" . strftime($this->timeformat, strtotime($row->getAppointmentTime())); ?></td>
+					<td width="20%" ><a href='<?php echo $path; ?>'><?php echo $this->lang[512]; ?></a></td>
+					<td width="20%"><?php echo $status; ?></td>
+				</tr>
+                <?php
+                        }
+                    }
+                    if ($ctr < 4) {
+                        $count--;
+                        for ($i = $ctr; $i <= 4; $i++) {
+                            $class = 'blue';
+                            if ($count % 2 == 0) {
+                                $class = 'light-blue';
+                            }
+                            $count++;
+                ?>
+				<tr class="<?php print $class; ?>" >
+					<td >&nbsp;</td>
+					<td >&nbsp;</td>
+					<td >&nbsp;</td>
+					<td >&nbsp;</td>
+					<td >&nbsp;</td>
+				</tr>
+                <?php
+                        }
+                    }
+                ?>
+		<?php
+                } else {
+				?>
+				 </tr>
+					<tr class="odd">
+					<td width="20%">&nbsp;</td>
+					<td width="20%">&nbsp;</td>
+					<td width="20%">&nbsp;</td>
+					<td width="20%">&nbsp;</td>
+					<td width="20%">&nbsp;</td>
+				</tr>
+				<tr class="even">
+					<td >&nbsp;</td>
+					<td >&nbsp;</td>
+					<td ><?php echo $this->lang[292]; ?></td>
+					<td >&nbsp;</td>
+					<td >&nbsp;</td>
+				</tr>
+				<tr class="odd">
+					<td >&nbsp;</td>
+					<td >&nbsp;</td>
+					<td >&nbsp;</td>
+					<td >&nbsp;</td>
+					<td >&nbsp;</td>
+				</tr>
+				<tr class="even">
+					<td >&nbsp;</td>
+					<td >&nbsp;</td>
+					<td >&nbsp;</td>
+					<td >&nbsp;</td>
+					<td >&nbsp;</td>
+				</tr>
+				<tr class="odd">
+					<td >&nbsp;</td>
+					<td >&nbsp;</td>
+					<td >&nbsp;</td>
+					<td >&nbsp;</td>
+					<td >&nbsp;</td>
+				</tr>
+            <?php
+                }
+    ?>
+			</tbody>
+		</table>
+	</div>
+</div>

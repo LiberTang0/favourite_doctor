@@ -1,0 +1,24 @@
+<div id="top_header">
+	<div id="top_links" class="clearfix">
+	<?php if (Zend_Auth::getInstance()->hasIdentity() && Zend_Auth::getInstance()->getIdentity()!="admin"):?>
+		<a href="<?php echo $this->seoUrl('/index/logout')?>">
+			<?php echo $this->lang[18]; ?>
+		&nbsp;|&nbsp;</a>
+		<a href="<?php echo $this->seoUrl('/user')?>">
+			<?php echo $this->lang[21]; ?>
+		</a>
+		<?php //if index ?>
+	<?php else:?>
+		<a href="/login">
+			<?php echo $this->lang[19];?>&nbsp;|&nbsp;
+		</a>	
+		<a href="/register">
+			<?php echo $this->lang[20];?>
+		</a>	
+	<?php endif;?>
+	</div>
+	<h1 id="logo">
+		<a href="/"><span>sitename</span></a>
+	</h1>	
+</div>
+

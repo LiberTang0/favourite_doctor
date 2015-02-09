@@ -1,0 +1,85 @@
+[17-May-2013 07:45:18] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[42S02]: Base table or view not found: 1146 Table 'fanisp_gold.seo_urls' doesn't exist' in /home/fanisp/public_html/gold/library/Zend/Db/Statement/Pdo.php:228
+Stack trace:
+#0 /home/fanisp/public_html/gold/library/Zend/Db/Statement/Pdo.php(228): PDOStatement->execute(Array)
+#1 /home/fanisp/public_html/gold/library/Zend/Db/Statement.php(300): Zend_Db_Statement_Pdo->_execute(Array)
+#2 /home/fanisp/public_html/gold/library/Zend/Db/Adapter/Abstract.php(468): Zend_Db_Statement->execute(Array)
+#3 /home/fanisp/public_html/gold/library/Zend/Db/Adapter/Pdo/Abstract.php(238): Zend_Db_Adapter_Abstract->query('DESCRIBE `seo_u...', Array)
+#4 /home/fanisp/public_html/gold/library/Zend/Db/Adapter/Pdo/Mysql.php(156): Zend_Db_Adapter_Pdo_Abstract->query('DESCRIBE `seo_u...')
+#5 /home/fanisp/public_html/gold/library/Zend/Db/Table/Abstract.php(823): Zend_Db_Adapter_Pdo_Mysql->describeTable('seo_urls', NULL)
+#6 /home/fanisp/public_html/gold/library/Zend/Db/Table/Abstract.php in /home/fanisp/public_html/gold/library/Zend/Db/Statement/Pdo.php on line 234
+[17-May-2013 07:45:47] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[42S02]: Base table or view not found: 1146 Table 'fanisp_gold.seo_urls' doesn't exist' in /home/fanisp/public_html/gold/library/Zend/Db/Statement/Pdo.php:228
+Stack trace:
+#0 /home/fanisp/public_html/gold/library/Zend/Db/Statement/Pdo.php(228): PDOStatement->execute(Array)
+#1 /home/fanisp/public_html/gold/library/Zend/Db/Statement.php(300): Zend_Db_Statement_Pdo->_execute(Array)
+#2 /home/fanisp/public_html/gold/library/Zend/Db/Adapter/Abstract.php(468): Zend_Db_Statement->execute(Array)
+#3 /home/fanisp/public_html/gold/library/Zend/Db/Adapter/Pdo/Abstract.php(238): Zend_Db_Adapter_Abstract->query('DESCRIBE `seo_u...', Array)
+#4 /home/fanisp/public_html/gold/library/Zend/Db/Adapter/Pdo/Mysql.php(156): Zend_Db_Adapter_Pdo_Abstract->query('DESCRIBE `seo_u...')
+#5 /home/fanisp/public_html/gold/library/Zend/Db/Table/Abstract.php(823): Zend_Db_Adapter_Pdo_Mysql->describeTable('seo_urls', NULL)
+#6 /home/fanisp/public_html/gold/library/Zend/Db/Table/Abstract.php in /home/fanisp/public_html/gold/library/Zend/Db/Statement/Pdo.php on line 234
+[17-May-2013 07:48:29] the where clause:---> AND ( area = 'Chicago' OR city = 'Chicago' OR country= 'Chicago' OR state= 'Chicago' OR zipcode = 'Chicago') AND 
+[17-May-2013 08:36:35] PHP Fatal error:  Call to undefined method Application_Model_Assistant::getAssistants() in /home/fanisp/public_html/gold/application/modules/admin/controllers/DoctorController.php on line 515
+[17-May-2013 08:39:23] PHP Fatal error:  Call to a member function setMultiOptions() on a non-object in /home/fanisp/public_html/gold/application/modules/admin/controllers/DoctorController.php on line 520
+[17-May-2013 08:41:48] PHP Fatal error:  Call to undefined method Application_Model_Doctor::getDiscounts() in /home/fanisp/public_html/gold/application/modules/admin/controllers/DoctorController.php on line 582
+[17-May-2013 08:44:37] slot_date='2013-05-17' AND  doctor_id='844025'
+[17-May-2013 08:45:49] slot_date='2013-05-17' AND  doctor_id='844025'
+[17-May-2013 08:52:49] PHP Warning:  Invalid argument supplied for foreach() in /home/fanisp/public_html/gold/application/modules/admin/views/scripts/assistant/add-edit.phtml on line 61
+[17-May-2013 09:05:35] PHP Fatal error:  Call to undefined method Application_Model_Doctor::setVerified() in /home/fanisp/public_html/gold/application/modules/admin/controllers/DoctorController.php on line 953
+[17-May-2013 09:06:46] PHP Fatal error:  Call to a member function getName() on a non-object in /home/fanisp/public_html/gold/application/models/DoctorAssistant.php on line 182
+[17-May-2013 09:07:00] PHP Fatal error:  Call to a member function getFname() on a non-object in /home/fanisp/public_html/gold/application/models/DoctorAssistant.php on line 182
+[17-May-2013 09:09:59] PHP Fatal error:  Call to a member function getDoctorId() on a non-object in /home/fanisp/public_html/gold/application/models/DoctorAssistant.php on line 181
+[17-May-2013 09:11:31] PHP Fatal error:  Call to a member function getDoctorId() on a non-object in /home/fanisp/public_html/gold/application/models/DoctorAssistant.php on line 181
+[17-May-2013 09:14:07] PHP Fatal error:  Call to a member function select() on a non-object in /home/fanisp/public_html/gold/application/modules/admin/views/scripts/assistant/add-edit.phtml on line 57
+[03-Jun-2013 04:06:12] the where clause:---> AND ( area = 'Chicago' OR city = 'Chicago' OR country= 'Chicago' OR state= 'Chicago' OR zipcode = 'Chicago') AND 
+[03-Jun-2013 04:06:15] PHP Fatal error:  Call to undefined method Application_Model_Doctor::hasRvleft() in /home1/fanisp/public_html/gold/application/views/scripts/search/index.phtml on line 197
+[03-Jun-2013 04:06:28] the where clause:---> AND ( area = 'Chicago' OR city = 'Chicago' OR country= 'Chicago' OR state= 'Chicago' OR zipcode = 'Chicago') AND 
+[03-Jun-2013 04:08:26] the where clause:---> AND ( area = 'Chicago' OR city = 'Chicago' OR country= 'Chicago' OR state= 'Chicago' OR zipcode = 'Chicago') AND 
+[03-Jun-2013 04:08:30] the where clause:---> AND ( area = 'Chicago' OR city = 'Chicago' OR country= 'Chicago' OR state= 'Chicago' OR zipcode = 'Chicago') AND 
+[03-Jun-2013 04:09:15] the where clause:---> AND ( area = 'Chicago' OR city = 'Chicago' OR country= 'Chicago' OR state= 'Chicago' OR zipcode = 'Chicago') AND 
+[03-Jun-2013 04:09:15] PHP Fatal error:  Call to undefined method Application_Model_Doctor::hasRvleft() in /home1/fanisp/public_html/gold/application/views/scripts/search/index.phtml on line 197
+[03-Jun-2013 04:10:26] the where clause:---> AND ( area = 'Chicago' OR city = 'Chicago' OR country= 'Chicago' OR state= 'Chicago' OR zipcode = 'Chicago') AND 
+[03-Jun-2013 04:11:42] the where clause:---> AND ( area = 'Chicago' OR city = 'Chicago' OR country= 'Chicago' OR state= 'Chicago' OR zipcode = 'Chicago') AND 
+[03-Jun-2013 05:01:14] the where clause:---> AND ( area = 'Chicago' OR city = 'Chicago' OR country= 'Chicago' OR state= 'Chicago' OR zipcode = 'Chicago') AND 
+[03-Jun-2013 05:07:59] the where clause:---> AND ( area = 'Chicago' OR city = 'Chicago' OR country= 'Chicago' OR state= 'Chicago' OR zipcode = 'Chicago') AND 
+[03-Jun-2013 05:11:41] the where clause:---> AND ( area = 'Chicago' OR city = 'Chicago' OR country= 'Chicago' OR state= 'Chicago' OR zipcode = 'Chicago') AND 
+[03-Jun-2013 05:12:14] the where clause:---> AND ( area = 'Chicago' OR city = 'Chicago' OR country= 'Chicago' OR state= 'Chicago' OR zipcode = 'Chicago') AND 
+[03-Jun-2013 05:12:40] the where clause:---> AND ( area = 'Chicago' OR city = 'Chicago' OR country= 'Chicago' OR state= 'Chicago' OR zipcode = 'Chicago') AND 
+[03-Jun-2013 05:13:49] the where clause:---> AND ( area = 'Chicago' OR city = 'Chicago' OR country= 'Chicago' OR state= 'Chicago' OR zipcode = 'Chicago') AND 
+[13-Jul-2013 09:23:09] the where clause:---> AND ( area = 'Chicago' OR city = 'Chicago' OR country= 'Chicago' OR state= 'Chicago' OR zipcode = 'Chicago') AND 
+[13-Jul-2013 09:23:17] PHP Fatal error:  Call to a member function getValue() on a non-object in /home1/fanisp/public_html/gold16/application/modules/admin/models/GlobalSettings.php on line 306
+[13-Jul-2013 09:23:17] PHP Fatal error:  Call to a member function getValue() on a non-object in /home1/fanisp/public_html/gold16/application/modules/admin/models/GlobalSettings.php on line 306
+[13-Jul-2013 09:23:18] PHP Fatal error:  Call to a member function getValue() on a non-object in /home1/fanisp/public_html/gold16/application/modules/admin/models/GlobalSettings.php on line 306
+[13-Jul-2013 09:23:18] PHP Fatal error:  Call to a member function getValue() on a non-object in /home1/fanisp/public_html/gold16/application/modules/admin/models/GlobalSettings.php on line 306
+[13-Jul-2013 09:23:34] PHP Fatal error:  Call to a member function getValue() on a non-object in /home1/fanisp/public_html/gold16/application/modules/admin/models/GlobalSettings.php on line 306
+[13-Jul-2013 09:23:41] PHP Fatal error:  Call to a member function getValue() on a non-object in /home1/fanisp/public_html/gold16/application/modules/admin/models/GlobalSettings.php on line 306
+[16-Jul-2013 07:57:22] the where clause:---> AND ( area = 'Chicago' OR city = 'Chicago' OR country= 'Chicago' OR state= 'Chicago' OR zipcode = 'Chicago') AND 
+[16-Jul-2013 07:57:26] PHP Fatal error:  Call to a member function getValue() on a non-object in /home1/fanisp/public_html/gold16/application/modules/admin/models/GlobalSettings.php on line 306
+[16-Jul-2013 07:57:26] PHP Fatal error:  Call to a member function getValue() on a non-object in /home1/fanisp/public_html/gold16/application/modules/admin/models/GlobalSettings.php on line 306
+[16-Jul-2013 07:57:26] PHP Fatal error:  Call to a member function getValue() on a non-object in /home1/fanisp/public_html/gold16/application/modules/admin/models/GlobalSettings.php on line 306
+[16-Jul-2013 07:57:27] PHP Fatal error:  Call to a member function getValue() on a non-object in /home1/fanisp/public_html/gold16/application/modules/admin/models/GlobalSettings.php on line 306
+[16-Jul-2013 07:57:32] PHP Fatal error:  Call to a member function getValue() on a non-object in /home1/fanisp/public_html/gold16/application/modules/admin/models/GlobalSettings.php on line 306
+[17-Jul-2013 02:51:07] the where clause:---> AND ( area = 'Chicago' OR city = 'Chicago' OR country= 'Chicago' OR state= 'Chicago' OR zipcode = 'Chicago') AND 
+[17-Jul-2013 02:51:12] PHP Fatal error:  Call to a member function getValue() on a non-object in /home1/fanisp/public_html/gold16/application/modules/admin/models/GlobalSettings.php on line 306
+[17-Jul-2013 02:51:12] PHP Fatal error:  Call to a member function getValue() on a non-object in /home1/fanisp/public_html/gold16/application/modules/admin/models/GlobalSettings.php on line 306
+[17-Jul-2013 02:51:13] PHP Fatal error:  Call to a member function getValue() on a non-object in /home1/fanisp/public_html/gold16/application/modules/admin/models/GlobalSettings.php on line 306
+[17-Jul-2013 02:51:13] PHP Fatal error:  Call to a member function getValue() on a non-object in /home1/fanisp/public_html/gold16/application/modules/admin/models/GlobalSettings.php on line 306
+[17-Jul-2013 02:56:49] the where clause:---> AND ( area = 'Chicago' OR city = 'Chicago' OR country= 'Chicago' OR state= 'Chicago' OR zipcode = 'Chicago') AND 
+[17-Jul-2013 02:56:52] PHP Fatal error:  Call to a member function getValue() on a non-object in /home1/fanisp/public_html/gold16/application/modules/admin/models/GlobalSettings.php on line 306
+[17-Jul-2013 02:56:53] PHP Fatal error:  Call to a member function getValue() on a non-object in /home1/fanisp/public_html/gold16/application/modules/admin/models/GlobalSettings.php on line 306
+[17-Jul-2013 02:56:53] PHP Fatal error:  Call to a member function getValue() on a non-object in /home1/fanisp/public_html/gold16/application/modules/admin/models/GlobalSettings.php on line 306
+[17-Jul-2013 02:56:53] PHP Fatal error:  Call to a member function getValue() on a non-object in /home1/fanisp/public_html/gold16/application/modules/admin/models/GlobalSettings.php on line 306
+[17-Jul-2013 03:00:35] the where clause:---> AND ( area = 'Chicago' OR city = 'Chicago' OR country= 'Chicago' OR state= 'Chicago' OR zipcode = 'Chicago') AND 
+[24-Jul-2013 03:16:38] the where clause:---> AND ( area = 'Chicago' OR city = 'Chicago' OR country= 'Chicago' OR state= 'Chicago' OR zipcode = 'Chicago') AND 
+[24-Jul-2013 03:17:50] the where clause:---> AND ( area = 'Chicago' OR city = 'Chicago' OR country= 'Chicago' OR state= 'Chicago' OR zipcode = 'Chicago') AND 
+[24-Jul-2013 03:19:50] the where clause:---> AND ( area = 'Chicago' OR city = 'Chicago' OR country= 'Chicago' OR state= 'Chicago' OR zipcode = 'Chicago') AND 
+[24-Jul-2013 03:20:43] the where clause:---> AND ( area = 'Chicago' OR city = 'Chicago' OR country= 'Chicago' OR state= 'Chicago' OR zipcode = 'Chicago') AND 
+[24-Jul-2013 03:21:23] the where clause:---> AND ( area = 'Chicago' OR city = 'Chicago' OR country= 'Chicago' OR state= 'Chicago' OR zipcode = 'Chicago') AND 
+[24-Jul-2013 04:38:06] the where clause:---> AND ( area = 'Chicago' OR city = 'Chicago' OR country= 'Chicago' OR state= 'Chicago' OR zipcode = 'Chicago') AND 
+[01-Aug-2013 03:49:37] PHP Warning:  Invalid argument supplied for foreach() in /home1/fanisp/public_html/gold16/application/modules/admin/views/scripts/assistant/add-edit.phtml on line 63
+[01-Aug-2013 03:52:19] the where clause:---> AND ( area = 'Chicago' OR city = 'Chicago' OR country= 'Chicago' OR state= 'Chicago' OR zipcode = 'Chicago') AND 
+[10-Sep-2013 08:39:33] the where clause:---> AND ( area = 'Chicago' OR city = 'Chicago' OR country= 'Chicago' OR state= 'Chicago' OR zipcode = 'Chicago') AND 
+[10-Sep-2013 08:46:48] the where clause:---> AND ( area = 'Chic' OR city = 'Chic' OR country= 'Chic' OR state= 'Chic' OR zipcode = 'Chic') AND 
+[10-Sep-2013 08:46:48] PHP Warning:  implode() [<a href='function.implode'>function.implode</a>]: Invalid arguments passed in /home1/fanisp/public_html/gold16/application/views/scripts/search/index.phtml on line 437
+[10-Sep-2013 08:46:48] PHP Warning:  implode() [<a href='function.implode'>function.implode</a>]: Invalid arguments passed in /home1/fanisp/public_html/gold16/application/views/scripts/search/index.phtml on line 441
+[10-Sep-2013 08:46:48] PHP Warning:  Invalid argument supplied for foreach() in /home1/fanisp/public_html/gold16/application/views/scripts/search/index.phtml on line 514
+[10-Sep-2013 08:46:57] the where clause:---> AND ( area = 'Chicago' OR city = 'Chicago' OR country= 'Chicago' OR state= 'Chicago' OR zipcode = 'Chicago') AND 
+[26-Sep-2013 03:39:46] PHP Warning:  Invalid argument supplied for foreach() in /home1/fanisp/public_html/gold16/application/modules/admin/views/scripts/assistant/add-edit.phtml on line 63

@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title><?php echo $this->lang[154]; ?></title>
+<link href="/style/custom.css" media="screen" rel="stylesheet" type="text/css" />
+<link href="/style/style.css" media="screen" rel="stylesheet" type="text/css" />
+</head>
+<body id="popup_main_wrapper">
+	<div class="header">
+	<?php
+	if(isset($_GET['newDoctor'])) {
+		$newDoc = true;
+	} else {
+		$newDoc = false;
+	}
+	?>
+		<h1 id="forgotTitle"><?php if($newDoc) { ?><?php echo $this->lang[155]; ?><?php } else { ?><?php echo $this->lang[156]; ?> <?php } ?></h1>
+	</div>
+	<div class="boxWrapper" id="forgotWrapper">
+	<?php
+	if($this->email == '') { ?>
+		<?php 
+		if($newDoc) {
+		?> 
+		<p><?php echo $this->lang[157]; ?></p>
+		<?php
+		} else {
+		?>
+		<p><?php echo $this->lang[158]; ?></p>
+		<?php } ?>
+		<form class="login_form clearfix" id="forgot" name="forgot" method="post" action="<?php echo $this->form->getAction(); ?>" >
+			<label for="user"><?php echo $this->lang[104]; ?></label><br/>
+			<div class="clearfix">
+				<?php echo $this->form->email; ?>
+				<input type="submit" class="email-my-password" tabindex="20" value="" id="forgotSubmit" name="submit" />
+			</div>
+		</form>
+		<?php $errors = $this->form->getErrorMessages();
+			if(!empty($errors)) {
+				echo "<ul class='error'>";
+				foreach($errors as $error) {
+					echo $error;
+				}
+				echo "</ul>";
+			}
+		?>
+	<?php } else { 
+		if($newDoc) { ?> 
+		<p id="forgtoSuccessMsg"><?php echo $this->lang[159]; ?></p>
+	<?php } else { ?> 
+		<p id="forgtoSuccessMsg"><?php echo $this->lang[160]; ?></p>
+	<?php }	?> 
+	<?php } ?>
+	</div>
+</body>
+</html>
+
+        

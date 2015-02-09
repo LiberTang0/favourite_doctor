@@ -1,0 +1,24 @@
+<?php
+$this->headLink()->appendStylesheet('/style/general_pages.css');
+?>
+
+<div class="inner_wrapperReg">
+	<div id="headerReg" class="clearfix">
+		<h1 id="registration_title" class="left"><?php echo $this->lang[195]; ?></h1>
+	
+		<a href="<?php echo $this->seoUrl('/index/patient-registration')?>" class="regbtn right" id="patientRegbtn"><span><?php echo $this->lang[164]; ?></span></a>
+		<?php if(!$this->dar) { ?>
+		<a href="/contact-us" class="regbtn right" id="docRegbtn"><span><?php echo $this->lang[165]; ?></span></a>
+		<?php } else { ?>
+		<a href="<?php echo $this->seoUrl('/index/doctor-registration')?>" class="regbtn right" id="docRegbtn"><span><?php echo $this->lang[165]; ?></span></a> -->
+		<?php } ?>
+	</div>
+	
+</div>
+<script type="text/javascript">
+	jQuery(document).ready(function(){
+		Cufon.replace('.regText h2', { fontFamily: 'Futura', hover: true });
+		//$('form#login').jqTransform();
+	});
+</script>
+

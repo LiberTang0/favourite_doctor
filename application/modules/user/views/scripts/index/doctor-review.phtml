@@ -1,0 +1,94 @@
+<?php $page = $this->paginator->getCurrentPageNumber(); ?>
+<div class="table-container">
+    <h2 style="padding-top:10px;"><?php echo $this->lang[574]; ?><span> <?php echo $this->lang[575]; ?><?php echo $this->total ?> <?php echo $this->lang[576]; ?></span></h2>
+    <span><?php echo $this->msg; ?></span>
+    <div class="sidescroll" style="width: auto; height: auto;">
+        <table width="100%" cellspacing="0" cellpadding="0" border="0" align="center" class="appointment-table">
+            <tbody>
+				<tr class="appointment-table-heading">
+					<th width="3%" align="center">#</th>
+					<th width="75%" align="left"><?php echo $this->lang[577]; ?></th>
+					<th width="8%" align="left"><?php echo $this->lang[578]; ?></th>
+					<th width="8%" align="center"><?php echo $this->lang[579]; ?></th>
+				</tr>
+			</tbody>
+		</table>
+		<div id="docrevshadow" class="middleShadow">&nbsp;</div>
+		<table width="100%" cellspacing="0" cellpadding="0" border="0" align="center" class="appointment-table">
+			<tbody>
+                <?php
+                if ($this->total > 0) {
+                    $sno = 0;
+                    $Doctor = new Application_Model_Doctor();
+                    
+                    $items_per_page = $this->paginator->getItemCountPerPage();
+                    if ($page > 1) {
+                        $sno = $items_per_page * $page - $items_per_page;
+                    }
+                    $ctr = 0;
+                    foreach ($this->paginator as $row) {
+                        $sno++;
+                        $count = 0;
+                        $ctr++;
+
+                        $class = 'blue';
+                        if ($count % 2 == 0) {
+                            $class = 'light-blue';
+                        }
+                        $count++;
+                        $docObject = $Doctor->fetchRow("id='{$row['doctor_id']}'");
+                ?>
+                        
+                        <tr class="<?php print $class; ?>" onmouseout="this.className='<?php print $class; ?>'" onmouseover="this.className='tr-over'">
+                            <td align="center"><?php echo $sno; ?></td>
+                            <td align="left"><?php echo stripslashes($row['review']);?></td>
+                            <td align="left"><?php echo $row['username'];?></td>
+                            <?php
+                                $published = "false.gif";
+                                $published_action = "publish";
+                                $published_title = $this->lang[582];
+                                if ($row['status'] == 1) {
+                                    $published = "true.gif";
+                                    $published_title = $this->lang[581];
+                                    $published_action = "unpublish";
+                                }
+                            ?>
+                            <td align="center"><a href="/user/index/<?php echo $published_action?>/id/<?php echo $row['id']?>/page/<?php echo $page;?>"><img border="0" title="<?php echo $published_title?>" src="/images/admin-images/<?php echo $published?>"></a></td>
+                        </tr>
+                <?php
+                    }
+
+                    if ($ctr < 4) {
+                        $count--;
+                        for ($i = $ctr; $i <= 4; $i++) {
+                            $class = 'blue';
+                            if ($count % 2 == 0) {
+                                $class = 'light-blue';
+                            }
+                            $count++;
+                ?>
+                            <tr class="<?php print $class; ?>" >
+                                <td >&nbsp;</td>
+                                <td >&nbsp;</td>
+                                <td >&nbsp;</td>
+                                <td >&nbsp;</td>
+                            </tr>
+                <?php
+                        }
+                    }
+                ?>
+                    </tr>
+                </tbody>
+            </table>
+    </div>
+    <?php
+                } else {
+                    echo "<tr><td colspan='4'>&nbsp;</td></tr>";
+                    echo "<tr><td colspan='4' align='center'>".$this->lang[580]."</td></tr>";
+                    echo "<tr><td colspan='4'>&nbsp;</td></tr>";
+                    echo "</tbody></table></div>";
+                }
+    ?>
+
+            </div>
+<?= $this->paginationControl($this->paginator, 'Sliding', 'pagination.phtml'); ?>

@@ -1,0 +1,137 @@
+<?php 
+$settings = new Admin_Model_GlobalSettings();
+$locale = $settings->settingValue('locale');
+setlocale(LC_ALL, $locale);
+
+$hours = $settings->settingValue('hours');
+if($hours) {
+	$timeFormat = "%I:%M %P";
+} else {
+	$timeFormat = "%H:%M";
+}
+?>
+<div class="inner_wrapperReg">	
+	<div class="clearfix">
+		<div class="patientMenuWrap left">
+			<h2><?php echo $this->lang[488]; ?></h2>
+			<ul id="patientMenu">
+				<li><a href="/user" class="current"><?php echo $this->lang[489]; ?></a></li>
+				<li><a href="/user/index/patient-edit"><?php echo $this->lang[490]; ?></a></li>
+				<li><a class="schedule-app-btn-sml" href="/"><?php echo $this->lang[491]; ?></a></li>
+			</ul>
+		</div>		
+		<div class="apointData right">
+			<h2><?php echo $this->lang[312]; ?></h2>
+			<table cellspacing="0" cellpadding="0" border="0" class="view-app-table">
+				<tbody>
+					<tr>
+						<th width="10%"><?php echo $this->lang[313]; ?></th>
+						<th width="15%"><?php echo $this->lang[314]; ?></th>
+						<th width="18%"><?php echo $this->lang[315]; ?></th>
+						<th width="15%"><?php echo $this->lang[316]; ?></th>
+						<th width="13%"><?php echo $this->lang[317]; ?></th>
+						<th width="5%" title="Approved"><?php echo $this->lang[318]; ?></th>
+					</tr>
+					<?php
+					$Doctor=new Application_Model_Doctor();
+					$Appointment=new Application_Model_Appointment();
+					if(count($this->upcomingObject)>0) {
+						foreach($this->upcomingObject as $row) {
+							$docObject=$Doctor->find($row->doctorId);
+							$where="id={$row->getId()}";
+							$status=$Appointment->getAppointmentStatus($where);
+					?>
+					<tr>
+						<td><a class="view-details" href="http://<?php echo $_SERVER['SERVER_NAME'];?>/user/index/appointment-detail/id/<?php echo $row->getId(); ?>"><?php echo $this->lang[510]; ?></a></td>
+						<td title=""><?php echo $this->Patient->getName(); ?></td>
+						<td title=""><?php echo $docObject->getFname()?></td>
+						<td title=""><?php echo $docObject->getactualPhone();?></td>
+						<td>
+							<?php echo date($this->dateFormat,strtotime($row->appointmentDate));?>
+							<br>
+							<?php echo strftime($this->timeformat,strtotime($row->appointmentTime)); ?>
+						</td>
+						<td><?php
+							echo $status;
+						  ?>
+							<br/><a href='/user/index/cancel/id/<?php echo $row->getId(); ?>' onclick="return confirm_cancel();"><?php echo $this->lang[319]; ?></a>
+						</td>
+					</tr>
+					<?php
+						}
+					} else {
+					?>
+					<tr>
+						<td colspan="6" class="noAppoint"><?php echo $this->lang[292]; ?></td>
+					</tr>
+					<?php
+					}
+					?>
+				</tbody>
+			</table>
+			<br>
+			<!--    Past Appointments-->
+			<h2 class="article-title"><?php echo $this->lang[320]; ?></h2>
+			<table cellspacing="0" cellpadding="0" border="0" class="view-app-table">
+				<tbody>
+					<tr>
+						<th width="10%"><?php echo $this->lang[313]; ?></th>
+						<th width="15%"><?php echo $this->lang[314]; ?></th>
+						<th width="18%"><?php echo $this->lang[315]; ?></th>
+						<th width="15%"><?php echo $this->lang[316]; ?></th>
+						<th width="13%"><?php echo $this->lang[317]; ?></th>
+						<th width="5%" title="Approved"><?php echo $this->lang[290]; ?></th>
+					</tr>
+					<?php
+					if(count($this->pastObject)>0) {
+						foreach($this->pastObject as $pastrow) {
+							$doctor_id = $pastrow->getDoctorId();    
+							$docObject=$Doctor->find($doctor_id);
+							$where="id={$pastrow->id}";
+							$status=$Appointment->getAppointmentStatus($where);
+					?>
+					<tr>
+						<td><a class="view-details" href="http://<?php echo $_SERVER['SERVER_NAME'];?>/user/index/appointment-detail/id/<?php echo $pastrow->id; ?>"><?php echo $this->lang[510]; ?></a></td>
+						<td title=""><?php echo $this->Patient->getName(); ?></td>
+						<td title=""><?php echo $docObject->getFname();?></td>
+						<td title=""><?php echo $docObject->getactualPhone();?></td>
+						<td>
+							<?php echo date($this->dateFormat,strtotime($pastrow->appointmentDate));?><br>
+							<?php echo strftime($this->timeformat,strtotime($pastrow->appointmentTime)); ?>
+						</td>
+						<td><?php 
+						if($status!= $this->lang[499])
+							echo $status;
+						else {
+							echo $this->lang[501]; 
+						}
+					  ?></td>
+					</tr>
+					<?php
+						}
+					} else {
+					?>
+					<tr>
+						<td colspan="6" class="noAppoint"><?php echo $this->lang[292]; ?></td>
+					</tr>
+					<?php
+					}
+					?>
+				</tbody>
+			</table>
+			<br>	
+			<div class="cancel-msg"><?php echo $this->lang[517]; ?></div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript" language="javascript">
+    function confirm_cancel() {
+        var answer=confirm("<?php echo $this->lang[518]; ?>");
+        if(answer) {
+			return true;
+		} else {
+			return false;
+		}
+    }
+</script>

@@ -1,0 +1,66 @@
+<script type="text/javascript">
+ function addfancybox(add) {
+	var fancy='#fancybox-wrap';
+	if(fancy) {
+		if(add) {
+			$('#fancybox-wrap').addClass('wrap1');
+		} else {
+			$('#fancybox-wrap').removeClass();
+		}
+	}
+}
+
+jQuery(document).ready(function(){
+	$("#forgotAtLogin").fancybox({
+		'width' : 960,
+		'height' : 300,
+		'autoScale' : true,
+		'transitionIn' : 'none',
+		'transitionOut' : 'none',
+		'autoDimensions' : false,
+		'type' : 'iframe'
+	});
+});
+
+jQuery(document).ready(function(){
+	$("#docRegLinker a").fancybox({
+		'width' : 960,
+		'height' : 300,
+		'autoScale' : true,
+		'transitionIn' : 'none',
+		'transitionOut' : 'none',
+		'autoDimensions' : false,
+		'type' : 'iframe'
+	});
+	$('form#login').jqTransform();
+});
+</script>
+
+<div class="inner_wrapperReg">
+	<div id="headerReg" class="clearfix">
+		<h1 class="left"><span><?php echo $this->lang[161]; ?></span></h1>
+	</div>
+	<div class="clearfix loginMain">
+		<div class="left" id="loginFormWrapper">
+			<form class="login_form clearfix" id="login" name="login" method="post" action="<?php echo $this->form->getAction() ?>">
+				<?php $errors = $this->form->getErrorMessages();
+                      if(!empty($errors)){echo "<ul class='errors'>";foreach($errors as $error){echo "<li>{$error}</li>";}echo "</ul>";}
+                ?>
+				<label for="email" class="mainLabel"><?php echo $this->lang[162]; ?></label><br/>
+				 <?php echo $this->form->email; ?><br/>
+				<label for="password" class="mainLabel"> <?php echo $this->lang[163]; ?></label><br/>
+				<?php echo $this->form->password; ?><br/>
+				<div class="choices clearfix">
+					<input type="radio" tabindex="4" class="f-left" value="p" id="logintypes-p" name="logintypes" checked /><label for="logintypes-p"> <?php echo $this->lang[164]; ?></label>
+					<input type="radio" tabindex="4" class="f-left" value="d" id="logintypes-d" name="logintypes" /><label for="logintypes-d"> <?php echo $this->lang[165]; ?></label>
+				</div>
+				<div class="choices clearfix">
+				<?php echo $this->form->rememberMe; ?><label for="rememberMe"> <?php echo $this->lang[166]; ?></label>
+				</div>
+				<?php echo $this->form->login; ?>
+			</form>
+			<a class="loginLinks" id="forgotAtLogin" href="<?php echo $this->seoUrl('/index/forgot')?>"><?php echo $this->lang[167]; ?></a>
+			<span clas="simpleText" ><?php echo $this->lang[168]; ?></span> <a class="loginLinks" href="<?php echo $this->seoUrl('/index/register')?>"><?php echo $this->lang[169]; ?></a>
+		</div>		
+	</div>	
+</div>

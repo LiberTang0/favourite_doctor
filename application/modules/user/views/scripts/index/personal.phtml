@@ -1,0 +1,146 @@
+<script type="text/javascript">
+function updatecatdependentvalues(optionbox) {
+    
+    var arcategories = new Array();
+    var strcategories;
+    for(i=0; i<optionbox.options.length; i++) {
+		arcategories[i]=optionbox.options[i].value;
+	}
+	strcategories = arcategories.join(",");
+	if(strcategories!="")
+	{
+		refreshdata(strcategories,'association');
+		refreshdata(strcategories,'hospitalaffiliation');
+		refreshdata(strcategories,'reasontovisit');
+	}
+}
+
+var default_state = "<?php echo $this->defaultAffiliateState; ?>";
+
+getaffiliation(default_state);
+function getaffiliation(val)
+{
+	var site_host = '<?php echo $_SERVER['SERVER_NAME']?>';
+	var doctor_id = '<?php echo $this->id; ?>';
+
+	var url= 'http://'+site_host+'/user/index/hospitalaffiliate';
+	var qstr="val="+val+"&doctor_id="+doctor_id;
+	$.post(url,qstr, function(data) {
+		$('#myhaffiliation').html("");
+		$('#myhaffiliation').html(data);
+	});
+
+}
+
+function removeImage()
+{
+	var site_host = '<?php echo $_SERVER['SERVER_NAME']?>';
+	var doctor_id = '<?php echo $this->id; ?>';
+	var url= '/user/index/deleteimage';
+	var qstr="doctor_id="+doctor_id;
+	if(confirm("Are you sure to remove Image?")) {
+		$.post(url,qstr, function(data) {
+			$('#doctor_image').html("");
+		});
+	}
+}
+</script>
+
+<div id="rightsidemain">
+	<div id="rightcontentpart">
+		<div id="table-container">
+			<h2><?php echo $this->lang[488]; ?></h2>
+      
+			<div class="appointment-content">
+				<?php echo $this->partial("index/topmenu.phtml",array('active'=>'personal'));?>
+			</div>
+			<div class="edit-profile-tbl"> 
+				<span class='red'><?php echo $this->msg; ?></span>
+				<form method="post" action="<?php echo $this->form->action?>" enctype="multipart/form-data" name="frm_personalinfo" id="frm_personalinfo">
+					<input type="hidden" name ="frmposted" value="1">
+					<table cellpadding="0" cellspacing="0" border="0">
+						<tr>
+							<td width="130"><label for="fname"><?php echo $this->lang[333]; ?>*: </label></td>
+							<td class="element" colspan="4"><?php echo $this->form->fname;?><span class="titledesc"><?php echo $this->lang[334]; ?></span></td>
+						</tr>
+						<tr>
+			                <td colspan="5">
+				                <table>
+				                    <td width="130"  ><label for="category_id"><?php echo $this->lang[72]; ?>:*</label></td>
+			               			<td class="element" ><?php echo $this->form->category_id2;?></td>
+			                		<td>
+			                			<input type="button" onClick="JSwap('category_id','category_id2');" name="addtolist" value=" &laquo; ">
+										<input type="button" onClick="JSwap('category_id2','category_id');" name="removefromlist" value=" &raquo; ">
+									</td>
+			                		<td style="width : 300px;">
+			                			<?php echo $this->lang[437]; ?>:<br>
+			                    		<?php echo $this->form->category_id;?>
+			                    	</td>
+			                	</table>
+		                    </td>
+			            </tr>
+						<tr>
+							<td width="130" ><label for="specialty_title"><?php echo $this->lang[335]; ?>: </label></td>
+							<td class="element" colspan="4"><?php echo $this->form->specialty_title;?></td>
+						</tr>
+						<tr>
+							<td width="130" ><label for="specialty"><?php echo $this->lang[336]; ?>: </label></td>
+							<td class="element" colspan="4"><?php echo $this->form->specialty;?></td>
+						</tr>
+						<tr>
+							<td width="130"><label for="about"><?php echo $this->lang[337]; ?>:</label></td>
+							<td class="element" colspan="4"><?php echo $this->form->about;?><span class="titledesc"><?php echo $this->lang[338]; ?></span></td>
+						</tr>
+						<tr>
+							<td width="130" ><label for="education"><?php echo $this->lang[222]; ?>: </label></td>
+							<td class="element" colspan="4"><?php echo $this->form->education;?></td>
+						</tr>
+						<tr>
+							<td width="130"><label for="text_award"><?php echo $this->lang[228]; ?>:</label></td>
+							<td class="element" colspan="4"><?php echo $this->form->text_award;?></td>
+						</tr>
+						<tr>
+							<td width="130"><label for="associates"><?php echo $this->lang[446]; ?>:</label></td>
+							<td class="element" colspan="4"><?php echo $this->form->associates;?></td>
+						</tr>
+						<tr>
+							<td width="130" ><label for="state"><?php echo $this->lang[468]; ?>:</label></td>
+							<td class="element" colspan="4"><?php echo $this->form->state_for_affiliate;?></td>
+						</tr>
+						<tr>
+							<td width="130" id="firstname-label"><label for="doctor_affiliation"><?php echo $this->lang[469]; ?>:</label></td>
+							<td class="element" id="myhaffiliation">
+								<select multiple size="10" name="doctor_affiliation2" style="width=300px;">
+								</select>
+							</td>
+							<td>
+								<input type="button" class="smallButton" onClick="JSwap('doctor_affiliation','doctor_affiliation2');" name="addtolist" value=" &laquo; ">
+								<input type="button" class="smallButton" onClick="JSwap('doctor_affiliation2','doctor_affiliation');" name="removefromlist" value=" &raquo; ">
+							</td>
+							<td> <?php echo $this->lang[521]; ?>:<br>
+							<?php echo $this->form->doctor_affiliation;?></td>
+						</tr>
+						<tr>
+							<td width="130"><label for="doctor_association"><?php echo $this->lang[342]; ?>:</label></td>
+							<td class="element" id="doctor_current_association_2"><?php echo $this->form->doctor_association2;?></td>
+							<td>
+								<input type="button" class="smallButton" onclick="JSwap('doctor_association','doctor_association2');" name="addtolist" value=" « ">
+								<input type="button" class="smallButton" onclick="JSwap('doctor_association2','doctor_association');" name="removefromlist" value=" » ">
+							</td>
+							<td class="element"><?php echo $this->lang[343]; ?>:<br>
+								<?php echo $this->form->doctor_association;?>
+							</td>
+						</tr>
+						<tr>
+							<td id="firstname-label"><label for="hobbies"><?php echo $this->lang[344]; ?>:</label></td>
+							<td class="element" colspan="4"><?php echo $this->form->hobbies;?></td>
+						</tr>					
+						<tr>
+							<td class="element" colspan="5"><?php echo $this->form->submit;?></td>
+						</tr>
+					</table>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

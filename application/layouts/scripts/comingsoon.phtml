@@ -1,0 +1,29 @@
+<?php echo $this->doctype() ?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-gb">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <?php
+        echo $this->headTitle();
+        echo $this->headMeta();
+        $this->headLink()->appendStylesheet('/style/comingsoon.css');
+        echo $this->headLink();
+        ?>
+        <!--[if IE 6]>
+			<link href="/style/ie6only.css" media="screen" rel="stylesheet" type="text/css" />
+	<![endif]-->
+
+        <?php //echo $this->render("/page/googlecode.phtml"); ?>
+    </head>
+    <body>
+        <div id="container">
+            <div class="body-box-top"></div>
+            <div class="body-box-top-inner">
+                <div class="body-box-top-inner2">
+                    <?php echo $this->layout()->content ?>
+                    <div id="right-app"></div>
+                </div>
+            </div>
+            <div class="body-box-bottom"></div>
+        </div>
+    </body>
+</html>

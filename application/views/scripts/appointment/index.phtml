@@ -1,0 +1,248 @@
+<?php
+$settings = new Admin_Model_GlobalSettings();
+$locale = $settings->settingValue('locale');
+setlocale(LC_ALL, $locale);
+?>
+<div id="inner_wrapper">
+	<div id="header">
+		&nbsp;
+	</div>
+
+	<div id="steps_main_space_wrapper">
+		<div id="steps_main_space">
+			<div id="left_side">
+				<div id="doctor_id">
+				<?php
+					$profileImage = "/images/doctor_image/" . $this->doctor->getCompanylogo();
+					if (!file_exists(getcwd() . $profileImage) || $this->doctor->getCompanylogo()=='')$profileImage = "/images/doctor_image/noimage.jpg";					
+					?>
+					<img width="185" src="<?php echo $profileImage?>" title="<?php echo $this->doctor->getFname()?>" alt="<?php echo $this->doctor->getFname()?>" id="profile_pic" />				
+					<h4><?php echo $this->lang[88]; ?></h4>
+					<p id="appointDate"><?php echo strftime('%A, %e %h', strtotime($this->date))?>. <?php echo strftime($this->timeformat, strtotime($this->time));?></p>
+
+					<h4><?php echo $this->lang[89]; ?></h4>
+					<p id="docName"><?php echo $this->doctor->getFname()?><span id="docSpecialty"> <?php echo $this->category?></span></p>
+
+					<h4><?php echo $this->lang[90]; ?></h4>
+					<p><strong><?php echo $this->doctor->getCompany()?></strong><br /><?php echo $this->doctor->getStreet()?>, <?php echo $this->doctor->getCity()?>, <?php echo $this->doctor->getState()?> <?php echo $this->doctor->getZipcode()?></p>
+				</div>			
+			</div>
+			
+			<form id="appoint_form"  method="post" class="steps_form jqtransform" action="json.html">
+				<input type="hidden" value="" id="slot" name="slot" />
+				<input type="hidden" value="<?php echo $this->drid;?>" id="drid" name="drid" />
+				<input type="hidden" value="<?php echo $this->time;?>" id="appointment_time" name="appointment_time" />
+				<input type="hidden" value="<?php echo $this->date;?>" id="appointment_date" name="appointment_date" />
+				<input type="hidden" value="" id="status_val" name="status_val" />
+				<input type="hidden" id="checkRegStatus" name="checkRegStatus" value="0" />
+				<input type="hidden" class="inputf1" id="app_id" name="app_id" value="" />
+				<input type="hidden" class="" id="newReg" name="newReg" value="false"/>
+<!-- ---------------- step1 -------------------- -->
+				<div id="step1" class="right_side step" >				
+					<div id="step1first">
+						<h3><?php echo $this->lang[92]; ?></h3>					
+						<select style="width: 272px;" id="reason_to_visit" name="reason_to_visit" class="styled required">
+							<option value="">--<?php echo $this->lang[93]; ?>--</option>
+							<?php
+							$reasonNamespace = new Zend_Session_Namespace('reason');
+							$reason_to_visit = $reasonNamespace->reasonforvisit;	
+							foreach($this->reasonforvisit as $reasonid=>$reasonforvisit):?>
+							<option value='<?php echo $reasonid?>' <?php if($reasonid==$reason_to_visit)echo "selected='selected'";?>><?php echo $reasonforvisit?></option>						
+							<?php endforeach;?>
+							<option value="0"><?php echo $this->lang[94]; ?></option>
+						</select>
+						<div style="display: none;" id="other_reason">
+							<textarea id="needs" name="needs"><?php echo $this->lang[95]; ?></textarea>
+							<br/>
+						</div>
+					</div>
+					<h3><?php echo $this->lang[96]; ?></h3>
+					<div class="clearfix">
+						<input type="radio" checked="checked" value="1" name="paying" class="jqtransform" id="pay_mode1"/><label for="pay_mode1"><?php echo $this->lang[97]; ?></label>
+					</div>
+					<div class="clearfix">
+						<input type="radio" value="2" name="paying" id="pay_mode2" class="jqtransform"><label for="pay_mode2"><?php echo $this->lang[98]; ?></label>
+					</div>
+					<div id="did_insurance"> 
+						<label for="insurance_company" id="insuranceLabel"><?php echo $this->lang[99]; ?></label>
+						<select id="insurance_company" name="insurance_company" class="styled" style="width:272px;">
+							<option value=""><?php echo $this->lang[100]; ?></option>
+							<?php foreach($this->insurancedataArr as $key=>$value) {
+							?>
+							<option value="<?php echo $key;?>" <?php if($reasonNamespace->company==$key)echo "selected='selected'";?>><?php echo $value;?></option>
+							<?php
+							} ?>
+						</select>
+					</div>
+					<input type="button" value="" id="nxtStp1"/>
+				</div>		
+<!-- ---------------- end step1 -------------------- -->
+<!-- ------- step2 Start ask for login / singn up -------- -->
+				<div id="your_info" class="right_side step">							
+					<h3><?php echo $this->lang[101]; ?></h3>
+					<a href="#;" id="loginbtn"><img src="/images/login_btn.png" /></a>
+					<h3><?php echo $this->lang[102]; ?></h3>
+					<a href="#;" id="registerbtn"><img src="/images/register_btn.png" /></a>										
+				</div>
+<!-- step2 End ask for login / singn up -->
+<!-- step2 Start Login Form   -->
+				<div id="login" class="right_side appointment-details-whr step">
+					<h3 class="wh-heading"><?php echo $this->lang[103]; ?></h3>                
+					<label for="username"><?php echo $this->lang[104]; ?></label><br/>
+					<input type="text" class="inputf1 textfield" id="username" name="username" value=""><br/>
+					<label for="password"><?php echo $this->lang[105]; ?></label><br/>								
+					<input type="password" class="inputf1 textfield" id="password" name="password"><br/>					
+					<a href="/index/forgot" target="_blank" id="forgotLink" class="f-right"><?php echo $this->lang[106]; ?></a><br/>
+					<input type="button" value="" id="log2step2btn" />					
+				</div>
+<!-- step2 end Login form  -->
+<!-- Start Registration Form   -->
+				<div id="register" class="right_side appointment-details-whr step">
+					<h3 class="wh-heading"> <?php echo $this->lang[107]; ?></h3>
+					<label><?php echo $this->lang[104]; ?></label>
+					<input type="text" class="required textfield" id="newemail" name="newemail" value="">					
+					<label><?php echo $this->lang[105]; ?></label>
+					<input type="password" class="required textfield" id="newpassword" name="newpassword">
+					<div class="clearfix">
+						<input type="checkbox" class="required" value="1" id="term" name="term">
+						<span style="margin-top:6px;"><?php echo $this->lang[108]; ?> <a href="<?php echo $this->seoUrl('/index/terms')?>"><?php echo $this->lang[109]; ?></a> <?php echo $this->lang[110]; ?></span>
+					</div>
+					<input type="button" value="" id="reg2step2btn" />
+				</div>
+<!-- end Registration form  -->
+<!-- step2 start form 2 -->
+				<div id="step2form" class="right_side appointment-details-whr step">
+					<h3 class="wh-heading"><?php echo $this->lang[111]; ?></h3>
+					<label for="name"><?php echo $this->lang[112]; ?></label>
+					<input type="text" class="required textfield" id="name" name="name"/>
+					<label for="lastname"><?php echo $this->lang[549]; ?></label>
+					<input type="text" class="required textfield" id="lastname" name="lastname"/>
+					<label for="email"><?php echo $this->lang[104]; ?></label>
+					<input type="text" class="required textfield" id="email" name="email"/>
+					<label for="telephone"><?php echo $this->lang[113]; ?></label>
+					<input type="text" class="required textfield" id="phone" name="phone"/>
+					<label for="zipcode"><?php echo $this->lang[53]; ?></label>
+					<input type="text" class="required textfield" id="zipcode" name="zipcode"/>
+					<label for="day"><?php echo $this->lang[114]; ?></label>
+					<div class="clearfix">
+						<div id="the_day" class="left">
+							<select name="day" id="day" class="required styled" style="width: 42px;">
+								<?php foreach($this->days as $key=>$day):?>
+								<option value="<?php echo $key?>"><?php if($day<10 && $day!=0)echo '0';echo $day;?></option>
+								<?php endforeach;?>
+							</select>
+						</div>
+						<div id="the_month" class="left">
+							<select name="month" id="month" class="required styled" style="width: 136px;">
+								<?php foreach($this->months as $key=>$month):?>
+								<option value="<?php echo $key?>"><?php echo $month?></option>
+								<?php endforeach;?>
+							</select>
+						</div>
+						<div id="the_year" class="left">
+						<select name="year" id="year" class="required styled" style="width: 62px;">
+							<?php foreach($this->years as $key=>$year):?>
+							<option value="<?php echo $key?>"><?php echo $year;?></option>
+							<?php endforeach;?>
+						</select>
+						</div>
+					</div>
+					<div class="clearfix">
+						<input type="checkbox" id="first_visit" name="first_visit" checked="checked" class="styled left" /> <label for="first_visit" id="firstLabel" class="left"><?php echo $this->lang[115]; ?> <?php echo $this->doctor->getFname()?></label>
+					</div>
+					<div class="clearfix">
+						<label for="gender1"><?php echo $this->lang[116]; ?> <?php echo $this->gender; ?></label>
+						<input type="radio" value="m" id="gender1" name="gender" <?php if($this->gender == 'm') echo 'checked="checked"'; ?> ><span class="left" style="margin: 6px 5px 0 0;"><?php echo $this->lang[117]; ?></span>
+						<input type="radio" value="f" id="gender2" name="gender" <?php if($this->gender == 'f') echo 'checked="checked"'; ?>><span class="left" style="margin: 6px 5px 0 0;"><?php echo $this->lang[118]; ?></span>
+					</div>
+					<?php if($this->smsPlugin != 0) { ?>
+					<input type="button" value="" id="smsFormbtn" />
+					<?php } else { ?>
+					<input type="button" value="" id="endbtn" />
+					<?php } ?>
+				</div>
+<!-- step2 end form 2 --> 	
+<!-- --------- step3 sms form -------------- -->
+				<div id="smsForm" class="right_side appointment-details-whr step">				
+					<h3 style="width:302px;"><?php echo $this->lang[119]; ?></h3>
+					<input type="text" name="smsphone" id="smsphone" class="required textfield"/><br/>
+					<input type="button" id="smsphonebtn" value="" class="wizard-ignore"/>
+					<div class="attention">
+					<?php echo $this->lang[120]; ?>
+					</div>
+					<div class="loading">
+						<img src="/images/ajax-loader.gif" alt="loading">
+						<p><?php echo $this->lang[121]; ?></p>
+					</div>
+					<div id="smsCodeWrapper" style="display:none;">
+						<h3><?php echo $this->lang[122]; ?></h3>
+						<input type="text" id="smscode" name="smscode" class="textfield required"/>	<br/>	
+						<input type="button" value="" id="endbtn" />							
+					</div>
+				</div>
+<!-- --------- step3 end sms form ---------- -->		
+<!-- Start validate form   -->
+				<div id="sureForm" class="right_side appointment-details-whr step">
+					<h3 class="wh-heading"><?php echo $this->lang[123]; ?></h3>
+					<div class="attentionRand"><?php echo $this->lang[124]; ?></div>
+					<input type="button" value="" id="acceptSubmit" />
+					<input type="button" value="" id="notAcceptSubmit" />
+				</div>
+<!-- end validate form  -->
+<!-- --------- step4 start validation ---------- -->		
+				<div id="finalstep" class="right_side step">
+					<table>
+						<tr>
+							<td class="title"><?php echo $this->lang[112]; ?>: </td>
+							<td class="data" id="nameData"></td>
+						</tr>
+						<tr>
+							<td class="title"><?php echo $this->lang[549]; ?>: </td>
+							<td class="data" id="lastnameData"></td>
+						</tr>
+						<tr>
+							<td class="title"><?php echo $this->lang[104]; ?>: </td>
+							<td class="data" id="emailData"></td>
+						</tr>
+						<tr>
+							<td class="title"><?php echo $this->lang[113]; ?>: </td>
+							<td class="data" id="phoneData"></td>
+						</tr>
+						<tr>
+							<td class="title"><?php echo $this->lang[53]; ?>: </td>
+							<td class="data" id="zipData"></td>
+						</tr>
+						<tr>
+							<td class="title"><?php echo $this->lang[114]; ?>: </td>
+							<td class="data" id="birthData"></td>
+						</tr>
+						<tr>
+							<td class="title"><?php echo $this->lang[116]; ?>: </td>
+							<td class="data" id="genderData"></td>
+						</tr>
+					</table>
+					<a href="/login" title="<?php echo $this->lang[125]; ?>" id="regOutLink" style="display:none;"><?php echo $this->lang[126]; ?></a>
+					<a href="/user" title="<?php echo $this->lang[125]; ?>"  id="logOutLink" style="display:none;"><?php echo $this->lang[127]; ?></a>
+					
+				</div>
+<!-- --------- step4 end validation ---------- -->						
+			</form>
+		</div>
+	</div>
+</div>
+<?php 
+if($this->error != "") {
+	$errormsg = $this->error['msg'];
+} else {
+	$errormsg = "";
+} ?>
+<div id="error" style="display:none" >
+	<span id="errorMessage"><?php echo $errormsg; ?></span>
+</div>
+<a href="#error" id="errorLauncher"></a>
+<script type="text/javascript" src="/js/forms/jquery.form.js"></script>
+<script type="text/javascript" src="/js/forms/jquery.validate.js"></script>
+<script type="text/javascript" src="/js/forms/jquery.ba-bbq.min.js"></script>
+<script type="text/javascript" src="/js/forms/jquery-ui-1.8.5.custom.min.js"></script>
+<script type="text/javascript" src="/js/forms/jquery.form.wizard.js"></script>
+<script type="text/javascript" src="/js/forms/appointment.js"></script>	
