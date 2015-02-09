@@ -1,0 +1,35 @@
+@charset "utf-8";
+/* CSS Document */
+
+/* =================================================
+				Global Reset
+=====================================================*/
+
+img{
+	behavior: url(/js/iepngfix.htc);
+}
+
+#header .logo a {
+	behavior: url(/js/iepngfix.htc);
+}
+
+.findbox-inner .find-doc-logo {
+	behavior: url(/js/iepngfix.htc);
+}
+
+#header .header-right .phone-no {
+	behavior: url(/js/iepngfix.htc);
+}
+
+.findbox-inner .search-div input.begin-search-btn {
+	behavior: url(/js/iepngfix.htc);
+}
+.findbox-inner .search-div input.begin-search-btn:hover {
+	behavior: url(/js/iepngfix.htc);
+}
+
+.search-list-row .map-mark span.loc-marker {
+	behavior: url(/js/iepngfix.htc);
+}
+
+#areaSearch {margin-top:0;}

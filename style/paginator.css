@@ -1,0 +1,19 @@
+#pagination {
+	height: 20px;
+	padding: 5px 10px;
+	color:#F2DAA6;
+	background: #F2DAA6;
+	width:98%
+}
+#pagination a {
+    color: #F2DAA6;
+    padding: 1px 5px;
+}
+.selected_pag {
+    background-color: #A81E2D;
+    border-radius: 60px 60px 60px 60px;
+    color: #F2DAA6;
+}
+.selected_pag .current {
+    color: #F2DAA6;
+}

@@ -1,0 +1,472 @@
+/*Style used to dropdowns */
+#header {position: relative;}
+
+#header div.selectbox-wrapper ul {
+	width: 296px;
+}
+
+#header div.selectbox-wrapper ul li {
+	font-size:13px;
+}
+
+/*******End dropdown style****/
+#form_area form {
+	padding: 20px 9px 0;
+	border-bottom:0;
+}
+
+#form_area form #submit {
+	z-index: 1;
+}
+
+.redLine {
+	background: #A81E2D;
+	width:100%;
+	height:21px;
+	position: absolute;
+	top:560px;
+}
+
+#header {
+	padding: 30px 10px 0 0; 
+	width: 950px;
+	background: #fff;
+}
+
+#header  #freesign {
+	top:-11px;
+	right: 5px;
+} 
+
+#profile_map {
+	width: 930px;
+	padding: 5px;
+	background-color: #E5E5E5;
+	float: right;
+}
+
+#fifty_off {
+	margin: 10px 0;
+	float: right;
+}
+
+#list_main {
+	padding: 30px 10px 10px;
+	background-color: #FFF;
+	float: left;
+	width: 940px;
+}
+
+#refine_by {
+	color: #A81E2D;
+	background-color: #F2DAA6;
+	border: 1px solid #C3D6DA;
+	padding: 10px;
+	height:17px;
+}
+
+#refine_by a {
+	color: #A81E2D;
+}
+
+#refine_by a:hover {
+	text-decoration: underline;
+}
+
+#search_results_title {
+	padding: 10px 0;
+	color: #5a5956;
+}
+
+#list_main #main_wrapper {
+	border-right: 1px solid #D8D5CE;
+	float: left;
+	width: 938px;
+}
+
+.list_item_numbers {
+	width: 55px;
+	height: 65px;
+	position: relative;
+	z-index: 9000;
+	text-align: center;
+	margin-bottom: -85px;
+	padding-top: 10px;
+	background-image: url(../images/docpin.png);
+	background-attachment: scroll;
+	background-position: 7px 6px;
+	background-repeat: no-repeat;
+	left: -28px;
+	top: 20px;
+	font-size: 11px;
+	color:#000;
+}
+
+.list_item_numbers span {
+	color: #77787b;
+	width: 25px;
+	height: 25px;
+	text-align: center;
+	font-weight: bold;
+	margin: 0 auto;
+	display: block;
+}
+
+#list_main #stripe {
+	margin: 5px 0 5px -6px;
+}
+
+#list_main #main_wrapper .list_item {
+	background-color: #fff;
+	background-attachment: scroll;
+	background-position: bottom left;
+	background-repeat: repeat-x;
+	float: left;
+	width: 938px;
+}
+
+.profile_main_info {
+	float: left;
+	width: 235px;
+}
+
+.profile_main_info h2,.profile_main_info h2 a, .profile_main_info h2:visited {
+	color: #A81E2D;
+	font-size: 18px;
+	font-weight: normal;
+}
+.profile_main_info h2 a:hover {
+	color: #FF7000;
+}
+
+.profile_main_info h4,.profile_main_info h4 a, .profile_main_info h4:visited {
+	color: #444;
+	font-size: 14px;
+	font-weight: normal;
+	margin-bottom:10px;
+}
+.profile_main_info h4 a:hover {
+	color: #FF7000;
+}
+.profile_main_info {
+	color: #444;
+}
+
+.profile_main_info .doctor_tel {
+	font-weight: normal;
+}
+
+.inscurance_support h3 {
+	float: left;
+	width: 234px;
+	height: 35px;
+	background-image: url(../images/insurance_support.png);
+	background-attachment: scroll;
+	background-position: top left;
+	background-repeat: no-repeat;
+}
+
+.inscurance_support h3 span {
+	display: none;
+}
+
+.inscurance_support div {
+	float: right;
+}
+
+.inscurance_support a {
+	position: relative;
+	left: 90px;
+}
+
+.inscurance_support {
+	clear: both;
+	width: 470px;
+	height: 35px;
+	background-image: url(../images/insurance_support_bg.png);
+	background-attachment: scroll;
+	background-position: top left;
+	background-repeat: no-repeat;
+}
+
+#list_main #main_wrapper .list_item .left_side, #list_main #main_wrapper .list_item .right_side {
+	float: left;
+}
+
+#list_main #main_wrapper .list_item .left_side {
+	width: 448px;
+	padding: 10px;
+}
+
+.insurance_result {
+	margin: 0 5px;
+	width: 35px;
+	height: 35px;
+	background-image: url(../images/insurance_result.png);
+	background-attachment: scroll;
+	background-repeat: no-repeat;
+}
+
+.insurance_result span {
+	display: none;
+}
+
+.insurance_result_positive {
+	background-position: 0 0;
+}
+
+.insurance_result_negative {
+	background-position: 0 -35px;
+}
+
+#list_main .profile_pic {
+	padding: 10px;
+	margin-right: 10px;
+	float: left;
+}
+
+#list_main .dates #left_arrow, #list_main .dates table, #list_main .dates #right_arrow {
+	float: left;
+	width: 24px;
+	text-align: center;
+}
+
+#list_main .dates #left_arrow, #list_main .dates #right_arrow {
+	background-image: url(../images/slider_arrows.png);
+	background-attachment: scroll;
+	background-position: -6px -6px ;
+	background-repeat: no-repeat;
+	display: block;
+	width: 24px;
+	height: 24px;
+	margin: 10px 5px;
+}
+
+#list_main .dates #right_arrow {
+	background-position: -30px -6px ;
+}
+
+#list_main .dates #left_arrow:hover {
+	background-position: -6px -36px ;
+}
+
+#list_main .dates #right_arrow:hover {
+	background-position: -30px -36px ;
+}
+
+#list_main .dates #left_arrow span, #list_main .dates #right_arrow span {
+	display: none;
+}
+
+#list_main .dates {
+	background-image: url(../images/dates_bg.png);
+	background-attachment: scroll;
+	background-position: 0 0;
+	background-repeat: repeat-x;
+	background-color:#E9E8E5;
+	float: left;
+}
+
+#list_main .dates table {
+	width: 400px;
+}
+
+#list_main .dates table a {
+	color: #A81E2D;
+	padding: 5px 0;
+	display: block;
+}
+
+#list_main .dates table a:hover {
+	color: #8C8A85;
+}
+
+#list_main .dates table h4 {
+	font-size: 11px;
+	line-height: 13px;
+}
+
+#list_main .dates table h4:first-line {
+	font-size: 13px;
+}
+
+#list_main .dates table tr {
+	width: 80px;
+	text-align: center;
+}
+
+#list_main .dates table td:nth-child(even) {
+	background-image: url(../images/table_bg_odd.jpg);
+	background-attachment: scroll;
+	background-position: top center;
+	background-repeat: repeat-x;
+}
+
+#list_main .dates table td {
+	padding: 10px;
+	border-left: 1px solid #D6D5D1;
+}
+
+#list_main .dates table td:last-child {
+	padding: 10px;
+	border-right: 1px solid #D6D5D1;
+}
+
+#bottom_shadow {
+	position: relative;
+	z-index:-2;
+}
+
+
+.selected_pag {
+	color: #FFF;
+	background-color: #A81E2D;
+	border-radius: 60px;
+	-moz-border-radius: 60px;	
+	-webkit-border-radius: 60px;
+}
+
+.selected_pag .current {
+	color:#fff;
+}
+
+*+html #footer {
+	margin-top: 0px;
+}
+
+*+html #four_cols {
+	width: 968px;
+}
+
+.refinesearch {clear:both;}
+.refinesearch li {float:left; padding-left:5px;}
+
+/****************** appointments ***********************/
+
+.right_side .dates .apointWrapper, .right_side .dates #div_next,.right_side .dates .info_next, .right_side .dates #div_prev, .right_side .dates .info_prev,.right_side .dates .arrow-right-app, .right_side .dates .arrow-left-app {
+	float: left;
+	width: 24px;
+	text-align: center;	
+	margin:0 5px;
+}
+
+.right_side .dates #div_next, .right_side .dates .info_next, .right_side .dates #div_prev, .right_side .dates .info_prev{
+	background-image: url(../images/slider_arrows.png);
+	background-attachment: scroll;
+	background-position: -6px -6px ;
+	background-repeat: no-repeat;
+	display: block;
+	width: 24px;
+	height: 24px;	
+	margin:10px 0;
+}
+
+.right_side .dates #div_next, .right_side .dates .info_next {
+	background-position: -30px -6px ;
+}
+
+.right_side .dates #div_prev:hover, .right_side .dates .info_prev:hover {
+	background-position: -6px -36px ;
+}
+
+.right_side .dates #div_next:hover, .right_side .dates .info_next:hover {
+	background-position: -30px -36px ;
+}
+
+.right_side .dates #div_prev span, .right_side .dates #div_next span, .right_side .dates .info_next span, .right_side .dates .info_prev  span{
+	display: none;
+}
+
+.right_side .dates {
+
+}
+
+.right_side .dates .apointWrapper {
+	width: 402px;
+	margin: 0;
+}
+
+.right_side .dates .apointWrapper a {
+	color: #A81E2D;
+	padding: 0px 0;
+	display: block;
+	font-weight: bold;
+}
+
+.right_side .dates .apointWrapper a.moreLink{
+	font-size: 9px;
+}
+
+.right_side .dates .apointWrapper a:hover {
+	color: #8C8A85;
+}
+
+.right_side .dates .apointWrapper .appoint-heading {
+	clear:both;
+}
+.right_side .dates .apointWrapper .appoint-heading #appointment-head li, 
+.right_side .dates .apointWrapper .appoint-heading .appointment-head-list li{
+	float:left;	
+	border-left: 1px solid #D6D5D1;
+	padding:10px 1px;
+	line-height: 13px;
+	font-size: 13px;
+	font-weight: bold;
+	width: 77px;
+	text-align:center;
+}
+
+.right_side .dates .apointWrapper .appoint-heading .appointment-head-list li span,
+.right_side .dates .apointWrapper .appoint-heading #appointment-head li span {
+	font-size: 11px;
+	font-weight: bold;
+}
+
+.right_side .dates .apointWrapper .appoint-heading .appointment-head-list li,
+.right_side .dates .apointWrapper .appoint-heading #appointment-head li {
+	background-image: url(../images/table_bg_odd.jpg);
+	background-attachment: scroll;
+	background-position: top center;
+	background-repeat: repeat-x;
+}
+
+.right_side .dates .apointWrapper .appoint-heading .appointment-head-list li:last-child,
+.right_side .dates .apointWrapper .appoint-heading #appointment-head li:last-child {
+	border-right: 1px solid #D6D5D1;
+}
+
+.right_side .dates .apointWrapper .appoint-body {
+	clear:both;
+}
+
+ul.appint-times{
+	background: url("../images/randezvous_small_back.png") repeat-y;
+	height: auto;
+	min-height: 167px;
+	overflow:hidden;
+}
+
+.right_side .dates .apointWrapper .appoint-body .appint-times li ul li{
+	float:left;	
+	border-left: 1px solid #D6D5D1;
+    padding: 0 10px;
+	font-size: 13px;
+	width: 59px;
+}
+
+.right_side .dates .apointWrapper .appoint-body .appint-times li ul li br {
+	display:none;
+}
+
+.right_side .dates .apointWrapper .appoint-body .appint-times li ul li:nth-child(even) {
+	/* background-image: url(../images/table_bg_odd.jpg);
+	background-attachment: scroll;
+	background-position: top center;
+	background-repeat: repeat-x; */
+	background:#F8F6F7;
+	color: #A81E2D;
+}
+
+.right_side .dates .apointWrapper .appoint-body .appint-times  li ul li:last-child {
+	border-right: 1px solid #D6D5D1;
+}

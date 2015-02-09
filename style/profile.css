@@ -1,0 +1,545 @@
+#logo {
+	margin: 0;
+}
+
+#inner_wrapper {
+	background-color: #FFF;
+	float: left;
+}
+
+#header {
+	padding: 10px;
+	width: 950px;
+	background: #fff;
+}
+
+#profile_main_info, #header_right, #profile_map {
+	float: left;
+}
+
+#profile_pic {
+	padding: 0px 10px 10px 0px;
+	}
+
+#profile_main_info {
+	margin-right: 10px;
+    padding-left: 30px;
+    width: 336px;
+}
+
+#docNameTitle {
+	color: #A81E2D;
+	font-size: 32px;
+	font-weight: normal;
+	line-height:21px;
+	height: 33px;
+    margin-bottom: 15px;
+    padding-left: 15px;
+	border-bottom: 2px solid  #A81E2D;
+}
+
+#profile_main_info h4 {
+	color: #A81E2D;
+	font-size: 14px;
+	font-weight: bold;
+	padding:0;
+	height: auto;
+}
+
+#profile_main_info #doctor_tel {
+	display: block;
+}
+
+#doctor_address {
+	font-size:15px;
+	font-weight: bold;
+	color:#737178;
+}
+
+.normal_span {
+	margin-bottom: 10px;
+	
+	color:#382e34;
+}
+
+.normal_span h3 {
+	font-weight: bold;
+	font-size: 13px;
+}
+
+.normal_span p {
+	color: #73716D;
+}
+
+.normal_span a {
+	text-decoration: underline;
+}
+
+
+#header_right {
+	margin: 0 10px;
+	width: 130px;
+	position: relative;
+}
+
+#header_right a {
+	width: 130px;
+	color: #A81E2D;
+	display: block;
+}
+
+#header_right a:hover {
+	color: #A4A3A1;
+}
+
+#header_right .read_more {
+	width: 41px;
+}
+
+#profile_map {
+	width: 240px;
+	padding: 5px;
+	background-color: #E5E5E5;
+	margin:10px 0 20px;
+}
+
+#latest_news {
+	margin: 10px;
+	width: 920px;
+	height: 15px;
+	padding: 17px 11px 13px;
+	clear: both;
+	background-image: url(../images/latest_news_bg.png);
+	background-attachment: scroll;
+	background-position: top center;
+	background-repeat: no-repeat;
+	color: #FFF;
+	font-size: 13px;
+	font-weight: bold;
+}
+
+#latest_news #date {
+	color: #043e50;
+	font-weight: bold;
+	margin-right: 10px;
+	margin-left: 50px;
+}
+
+#latest_news a {
+	font-size: 10px;
+	font-weight: bold;
+	color: #FFF;
+	margin-left: 10px;
+}
+
+#latest_news a:hover {
+	color: #7BC8DD;
+}
+
+#left_col, #right_col {
+	float: left;
+}
+
+#left_col {
+	width: 270px;
+	padding: 0 10px;
+}
+
+#left_col .left_col_main {
+	margin-bottom: 30px;
+}
+
+#left_col .left_col_main h3 {
+	color: #46B4C6;
+	border-bottom: 5px solid #D8D5CE;
+	padding-bottom: 10px;
+	margin-bottom: 10px;
+}
+
+#left_col .left_col_main ul , #second ul{
+	color: #46B4C6;
+	margin-left: 20px;
+	list-style: disc;
+	font-size: 23px;
+}
+
+#left_col .left_col_main ul span, #second ul span {
+	font-size: 13px;
+	color: #73716d;
+}
+
+#right_col {
+	width: 660px;
+	padding-right: 10px;
+}
+
+#right_col .main_box {
+	background-color: #EDEBE9;
+	border: 1px solid #D8D5CE;
+	padding: 10px;
+	margin-bottom: 10px;
+	float: left;
+	width: 640px;
+}
+
+#right_col #stripe {
+	margin-bottom: -45px;
+	margin-left: -5px;
+}
+
+#right_col #visit_reason {
+	padding: 10px;
+	padding-top: 50px;
+	border: 1px solid #D8D5CE;
+	float: left;
+	width: 640px;
+	font-weight: bold;
+}
+
+#right_col #visit_reason h3, #right_col #visit_reason form {
+	float:left;
+	margin-right: 10px;
+	font-size: 13px;
+	color:#a6a39d;
+}
+
+#right_col #visit_reason select {
+	padding: 2px;
+	/*border: 1px solid #CCC;*/
+	width: 271px;
+	color: #CCC;
+}
+
+#right_col #address {
+	padding: 10px;
+	padding-left: 35px;
+	border-left: 1px solid #D8D5CE;
+	border-right: 1px solid #D8D5CE;
+	float: left;
+	width: 615px;
+	font-weight: bold;
+	background-image: url(../images/map_point.png);
+	background-attachment: scroll;
+	background-position: 5px 6px;
+	background-repeat: no-repeat;
+	color:#a6a39d;
+}
+
+/******************** appointments ******************************/
+
+#right_col #dates #apointWrapper, #right_col #dates #div_next, #right_col #dates #div_prev {
+	float: left;
+	width: 24px;
+	text-align: center;
+}
+
+#right_col #dates #div_next, #right_col #dates #div_prev {
+	background-image: url(../images/slider_arrows.png);
+	background-attachment: scroll;
+	background-position: -6px -6px ;
+	background-repeat: no-repeat;
+	display: block;
+	width: 24px;
+	height: 24px;
+}
+
+#right_col #dates #div_next {
+	background-position: -30px -6px ;
+}
+
+#right_col #dates #div_prev:hover {
+	background-position: -6px -36px ;
+}
+
+#right_col #dates #div_next:hover {
+	background-position: -30px -36px ;
+}
+
+#right_col #dates #div_prev span, #right_col #dates #div_next span {
+	display: none;
+}
+
+#right_col #dates {
+	background-image: url(../images/table_bg.jpg);
+	background: #E9E8E4;
+	background-attachment: scroll;
+	background-position: top center;
+	background-repeat: repeat-x;
+}
+
+#right_col #dates #apointWrapper {
+	width: 590px;
+	margin: -10px 0;
+}
+
+#right_col #dates #apointWrapper a {
+	color: #A81E2D;
+	padding: 5px 0;
+	display: block;
+	font-weight: bold;
+}
+
+#right_col #dates #apointWrapper a:hover {
+	color: #8C8A85;
+}
+
+#right_col #dates #apointWrapper .appoint-heading {
+	clear:both;
+}
+#right_col #dates #apointWrapper .appoint-heading #appointment-head li{
+	float:left;	
+	border-left: 1px solid #D6D5D1;
+	padding:10px 0;
+	line-height: 13px;
+	font-size: 13px;
+	font-weight: bold;
+	width: 83px;
+	text-align:center;
+	color: #aba8a2;
+}
+
+#right_col #dates #apointWrapper .appoint-heading #appointment-head li span {
+	font-size: 11px;
+	font-weight: normal;
+}
+
+#right_col #dates #apointWrapper .appoint-heading #appointment-head li {
+	background-image: url(../images/table_bg_odd.jpg);
+	background-attachment: scroll;
+	background-position: top center;
+	background-repeat: repeat-x;
+}
+
+#right_col #dates #apointWrapper .appoint-heading #appointment-head li:last-child {
+	border-right: 1px solid #D6D5D1;
+}
+
+#right_col #dates #apointWrapper .appoint-body {
+	clear:both;
+}
+
+ul.appint-times{
+	background: url("../images/randezvous_back.png") repeat-y;
+	height: auto;
+	min-height: 240px;
+	overflow:hidden;
+}
+
+#right_col #dates #apointWrapper .appoint-body .appint-times li ul li{
+	float:left;	
+	border-left: 1px solid #D6D5D1;
+    padding: 10px;
+	font-size: 13px;
+	width: 63px;
+}
+
+#right_col #dates #apointWrapper .appoint-body .appint-times li ul li br {
+	display:none;
+}
+
+#right_col #dates #apointWrapper .appoint-body .appint-times li ul li:nth-child(even) {
+	/* background-image: url(../images/table_bg_odd.jpg);
+	background-attachment: scroll;
+	background-position: top center;
+	background-repeat: repeat-x; */
+	background:#F8F6F7;
+	color: #A81E2D;
+}
+
+#right_col #dates #apointWrapper .appoint-body .appint-times  li ul li:last-child {
+	border-right: 1px solid #D6D5D1;
+}
+
+/******************** appointments end **************************/
+#right_col .main_box .inner_shadow {
+	background-image: url(../images/video_gallery_shade.png);
+	background-attachment: scroll;
+	background-position: top center;
+	background-repeat: no-repeat;
+	margin: 0 auto;
+	width: 580px;
+	padding: 20px;
+}
+
+#right_col .main_box .inner_frame {
+	background-color: #FFF;
+	padding: 10px;
+}
+
+#right_col #video_gallery .inner_frame, #right_col #photo_gallery .inner_frame {
+	width: 560px;
+}
+
+#right_col #tabs_box {
+	height: 475px;
+}
+
+#right_col #tabs_box #tabs_container {
+	width: 600px;
+	padding: 20px 0;
+	margin: -10px;
+	margin-bottom: 10px;
+	font-size: 16px;
+	font-weight: bold;
+	background-image: url(../images/tabs_container_bg.png);
+	background-attachment: scroll;
+	background-position: top center;
+	background-repeat: repeat-x;
+}
+
+#right_col #tabs_box #tabs_container .selected {
+	background-color: #FFF;
+	color: #46B4C6;
+}
+
+#right_col #tabs_box #tabs_container a {
+	padding: 20px;
+}
+
+#right_col #tabs_box .inner_frame {
+	height: 420px;
+}
+
+#right_col .tab_frame {
+	height: 340px;
+	overflow: auto;
+}
+
+#right_col .tab_frame h3 {
+	color: #A81E2D;
+	font-size: 20px;
+	font-weight: normal;
+	margin-bottom: 5px; 
+}
+
+#right_col .tab_frame p {
+	margin-bottom: 30px;
+}
+
+#right_col #tabs_box .inner_shadow {
+	background-image: url(../images/tabs_box_shade.png);
+	background-attachment: scroll;
+	background-position: top center;
+	background-repeat: no-repeat;
+	margin: 0 auto;
+	width: 600px;
+	padding: 20px;
+}
+
+#docStartInfo {
+	display:block;
+	overflow:hidden;
+}
+
+#offerinProfile {
+	width:185px;
+}
+
+body {
+	color:#73716d;
+}
+
+#galleryTitle {
+	font-size: 20px;
+	color:#a6a39d;
+	font-size:normal;
+	padding:18px 11px;
+	height:14px;
+	margin:0;
+}
+
+.galleryTitle {
+	font-size:20px;	
+	height:20px;
+	width: 634px;
+	padding: 15px 13px;
+	font-size:bold;
+	color:#A81E2D;
+}
+
+#video_gallery, #photo_gallery {
+}
+#video_sidetitle {
+	position:absolute;
+	right:0;
+	top:20px;
+}
+
+#apointWrapper a.moreLink { 
+    font-size: 9px;
+}
+
+#left_col .left_col_main ul.noBullets, #second ul.noBullets {
+	list-style:none;
+	margin:0;
+}
+
+#left_col .left_col_main ul.noBullets, #second ul.noBullets {
+	list-style:none;
+	margin:0;
+}
+
+#left_col .left_col_main ul.noBullets li, #second ul.noBullets li{
+	background: none;
+	padding:0;
+}
+
+.nologoBullet {
+	padding-right:11px;
+}
+
+.dataSegment{
+	padding:5px;
+}
+.dataSegment h3{
+	color: #A81E2D;
+	border-bottom:1px solid #F2DAA6;
+}
+#profileLeftColumn {
+	padding-left:25px;
+}
+#profileRightColumn {
+	width: 670px;
+}
+
+.rateForm {
+	width:330px;
+}
+.revVotePrev {float:left;}
+
+.rateForm label {
+	float: left;
+    font-size: 12px;
+    padding: 10px 0px 0 0;
+    width: 30px;
+}
+#rvoteLabel {
+	width:60px;
+}
+
+
+.rateForm input, .rateForm textarea ,.rateForm select{
+	background: none repeat scroll 0 0 transparent;
+    border: 1px solid #CCCCCC;
+    border-radius: 5px 5px 5px 5px;
+    color: #666666;
+    float: right;
+    font-size: 12px;
+    height: auto;
+    margin: 5px;
+    padding: 5px;
+    width: 250px;
+}
+
+#revSendButton{
+	cursor:pointer;
+	width:100px;
+}
+
+#thanx {
+	height:190px;
+	padding-top:100;
+	font-weight: bold;
+	font-size:14px;
+	vertical-align: middle;
+}

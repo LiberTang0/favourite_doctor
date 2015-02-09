@@ -1,0 +1,409 @@
+#appointment_title {
+	width: 388px;
+	height: 66px;
+	background-image: url(../images/appointment_title.jpg);
+	background-attachment: scroll;
+	background-position: top left;
+	background-repeat: no-repeat;
+}
+
+#final_step_title {
+	width: 418px;
+	height: 66px;
+	background: none;
+	background-image: url(../images/appointment_title_final.jpg);
+	background-attachment: scroll;
+	background-position: top left;
+	background-repeat: no-repeat;
+}
+
+#final_step_title span {
+	display: none;
+}
+
+#appointment_title span {
+	display: none;
+}
+
+#appointment_done {
+	margin: 20px 0 0px 0px!important;
+	float: left;
+}
+
+#progress_bar, #steps_main_space_wrapper, #steps_footer {
+	background-color: #FFF;
+	padding: 25px;
+	float: left;
+	width: 910px;
+}
+
+#progress_bar img {
+	margin: 0 -5px;
+}
+
+#progress_bar ul li {
+	float: left;
+	width: 220px;
+	color: #DAD7D0;
+	margin-left: 5px;
+	text-align: right;
+}
+
+#progress_bar ul li h3 {
+	width: 215px;
+	height: 40px;
+	margin-bottom: 5px;
+	background-attachment: scroll;
+	background-position: top right;
+	background-repeat: no-repeat;
+}
+
+#progress_bar ul li h3 span {
+	display: none;
+}
+
+#progress_bar #ul_first #step1Title {
+	background-image: url(../images/steps_first_inactive.png);
+}
+#progress_bar #ul_first .selected_step #step1Title {
+	background-image: url(../images/steps_first_active.png);
+}
+
+#progress_bar #ul_first #step2Title {
+	background-image: url(../images/steps_second_inactive.png);
+}
+#progress_bar #ul_first .selected_step #step2Title {
+	background-image: url(../images/steps_second_active.png);
+}
+
+#progress_bar #ul_first #step3Title {
+	background-image: url(../images/steps_third_inactive.png);
+}
+#progress_bar #ul_first .selected_step #step3Title {
+	background-image: url(../images/steps_third_active.png);
+}
+
+#progress_bar #ul_first #step4Title {
+	background-image: url(../images/steps_fourth_inactive.png);
+}
+#progress_bar #ul_first .selected_step #step4Title {
+	background-image: url(../images/steps_fourth_active.png);
+}
+
+#progress_bar #ul_second #step1Title {
+	background-image: url(../images/steps_first_inactive.png);
+}
+
+#progress_bar #ul_second #step2Title {
+	background-image: url(../images/steps_second_active.png);
+}
+
+#progress_bar #ul_second #step3Title {
+	background-image: url(../images/steps_third_inactive.png);
+}
+
+#progress_bar #ul_second #step4Title {
+	background-image: url(../images/steps_fourth_inactive.png);
+}
+
+#progress_bar #ul_third #step1Title {
+	background-image: url(../images/steps_first_inactive.png);
+}
+
+#progress_bar #ul_third #step2Title {
+	background-image: url(../images/steps_second_inactive.png);
+}
+
+#progress_bar #ul_third #step3Title {
+	background-image: url(../images/steps_third_active.png);
+}
+
+#progress_bar #ul_third #step4Title {
+	background-image: url(../images/steps_fourth_inactive.png);
+}
+
+#progress_bar #ul_fourth #step1Title {
+	background-image: url(../images/steps_first_inactive.png);
+}
+
+#progress_bar #ul_fourth #step2Title {
+	background-image: url(../images/steps_second_inactive.png);
+}
+
+#progress_bar #ul_fourth #step3Title {
+	background-image: url(../images/steps_third_inactive.png);
+}
+
+#progress_bar #ul_fourth #step4Title {
+	background-image: url(../images/steps_fourth_active.png);
+}
+
+.selected_step {
+	color: #A6A2A2!important;
+}
+
+#header {
+	padding: 30px 30px 0;
+	width: 900px;
+}
+
+#header h2 {
+	float: left;
+}
+
+#header img {
+	float: right;
+}
+
+#steps_main_space {
+	background-color: #FCFCFB;
+	border: 1px solid #D8D5CE;
+	float: left;
+	width: 908px;
+	padding-top: 10px;
+	position: relative;
+}
+
+#left_side {
+	width: 450px;
+	float: left;
+}
+
+#doctor_id {
+	float: left;
+	clear: both;
+	width: 440px;
+	margin-bottom: 25px;
+	padding: 15px 10px 30px;
+	margin: 0 10px 0 5px;
+}
+
+#doctor_id h4 {
+	color: #A81E2D;
+}
+
+#doctor_id p {
+	border-bottom: 1px solid #F2DAA6;
+	float: left;
+	padding-bottom: 5px;
+	margin-bottom: 5px;
+	color: #595855;
+	width: 235px;
+	font-size: 15px;
+}
+
+#doctor_id p span {
+	color: 8C8A85;
+	display: block;
+}
+
+#doctor_id p:last-child {
+	border-bottom: 0;
+}
+
+#appointDate {
+	font-weight: bold;
+}
+
+#docName {
+	font-weight: bold;
+}
+
+#docSpecialty {
+	font-weight:normal;
+}
+
+#profile_pic {
+	padding-right: 10px;
+	margin-right: 10px;
+	float: left;
+}
+
+#quote {
+	color: #8C8A85;
+	font-size: 13px;
+	text-align: center;
+	font-weight: normal;
+	margin: 30px 0;
+	float: left;
+	width: 450px;
+}
+
+#quote:first-line {
+	color: #A81E2D;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+#steps_footer div {
+	float: right;
+}
+
+#steps_footer div a {
+	color: #A81E2D;
+}
+
+.steps_form {
+	margin-top: 25px;
+	float: left;
+	z-index:20;
+	position:relative;
+	width: 457px;
+}
+
+.steps_form .right_side {
+	margin: 0 50px 50px 55px;
+}
+
+.steps_form h3 {
+	color: #A81E2D;
+	font-size: 16px;
+	margin-bottom: 10px;
+	font-weight: normal;
+}
+
+.data {
+	color: #595855;
+	font-size: 13px;
+	font-weight:bold;
+}
+
+.title {
+	color: #66aa00;
+	font-size: 13px;
+	font-weight: bold;
+}
+
+.steps_form select {
+	margin-bottom: 30px;
+	color: #8c8a85;
+}
+
+.steps_form #step1 label {
+	color: #8c8a85;
+	padding-left: 10px;
+}
+
+.steps_form #step1 #nxtStp1 {
+	background: url("/images/step1_btn.png") no-repeat;
+	width:169px;
+	height:40px;
+	cursor: pointer;
+	margin-left:189px;
+	margin-top: 15px;
+}
+
+.steps_form #your_info img {
+	margin-bottom:30px;
+}
+
+#your_info, #step2form {
+	width:358px;
+	position: relative;
+}
+
+#smsFormbtn {
+	background: url("/images/send_btn.png") no-repeat;
+	width:169px;
+	height:40px;
+	cursor: pointer;
+	margin-left:189px;
+	margin-top: 10px;
+}
+
+#smsphonebtn, #endbtn, #log2step2btn, #reg2step2btn{
+	background: url("/images/send_btn.png") no-repeat;
+	width:169px;
+	height:40px;
+	cursor: pointer;
+	margin-left:136px;
+	margin-top: 15px;
+	margin-bottom: 20px;
+}
+
+
+.steps_form .textfield {
+	background: url("/images/text_bg.png") no-repeat;
+	border:none;
+	padding:5px;
+	width: 302px;
+	height: 42px;
+	color: #8c8a85;
+}
+
+#register {
+	width:329px;
+}
+
+#finalstep {
+	margin:0 0 0 101px;
+}
+
+#yourInfoBg {
+	position: absolute; 
+	top: 85px; 
+	right: -30px;
+	z-index:10;
+}
+
+#phoneBg {
+	position: absolute; 
+	top: 62px; 
+	right: -34px;
+	z-index:10;
+
+}
+
+#steps_footer {
+	padding-top: 0;
+}
+
+#needs {
+	border:0;
+	background: url("/images/text_area_bg.png") no-repeat;
+	width: 294px;
+	height: 121px;
+	padding: 5px;
+	color: #8c8a85;
+}
+
+.steps_form #step1 label#insuranceLabel {
+	color: #A81E2D;
+	font-size: 16px;
+	margin-bottom: 10px;
+	padding:0;
+}
+#insurance_company {
+	margin-top:5px;
+}
+
+#forgotLink {
+	color:#A81E2D;
+}
+
+#firstLabel {
+	width:278px;
+	float:left;
+	margin-bottom: 10px;
+}
+
+#first_visit {
+	margin: 10px 10px 0 0;
+}
+
+.attention {
+	width: 250px;
+	padding:10px 12px 11px 35px;
+	background: url("/images/attention.png") no-repeat 10px 10px;
+	border: 1px solid #dbd8d1;
+	color: #000;
+}
+
+.attentionRand {
+	width: 250px;
+	padding:10px 12px 11px 35px;
+	background: url("/images/attention.png") no-repeat 10px 10px;
+	border: 1px solid #dbd8d1;
+	color: #000;
+	font-weight: bold;
+}
