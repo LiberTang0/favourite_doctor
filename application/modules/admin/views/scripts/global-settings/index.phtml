@@ -8,7 +8,7 @@ if($this->total_settings>0)
 	
 ?>
 <span class='red'>
-<? echo $this->msg;  ?>
+<?php echo $this->msg;  ?>
 </span>
 
 <br />
@@ -25,7 +25,7 @@ if($this->total_settings>0)
     <th>Action</th>
   </tr>
   
-	<?
+	<?php
 	
 	$sno=0;
 	$page=$this->paginator->getCurrentPageNumber();
@@ -59,12 +59,12 @@ if($this->total_settings>0)
     		</td>
     		
   		</tr>
-	<? 	
+	<?php 	
 	}
 	?>
 	</table><br />
 	<?=$this->paginationControl($this->paginator, 'Sliding', 'pagination.phtml'); ?><br /><br />
-<?	
+<?php	
 }
 ?></div>
   
